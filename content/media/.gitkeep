@@ -1,0 +1,1 @@
+# Drop original media here, then: npm run blob:ingest -- --dir ./content/media --prefix projects

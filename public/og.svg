@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#F1E8D4"/>
+  <circle cx="980" cy="140" r="180" fill="#C9A227" fill-opacity="0.55"/>
+  <circle cx="180" cy="520" r="220" fill="#3F5A2E" fill-opacity="0.35"/>
+  <text x="80" y="340" font-family="Georgia, serif" font-size="92" fill="#1A1610">Saël Simard</text>
+  <text x="80" y="410" font-family="Georgia, serif" font-size="28" fill="#1A1610">I design the conditions for an experience.</text>
+</svg>
