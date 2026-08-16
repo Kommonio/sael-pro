@@ -42,15 +42,33 @@ The script uploads to Blob and creates/updates Payload Media documents. Attach t
 
 Admin drag-and-drop also writes to Blob once the token is set.
 
-## Deploy
+## Deploy status
 
-1. Create a GitHub repo on the **kommon.io** org and push this project.
-2. Import the repo in Vercel as project `saelpro` (gives `saelpro.vercel.app`).
-3. Create a Neon (or Vercel Postgres) database. Set `DATABASE_URL`.
-4. Set `PAYLOAD_SECRET`, `NEXT_PUBLIC_SERVER_URL`, `BLOB_READ_WRITE_TOKEN`, `PREVIEW_SECRET`, `CRON_SECRET`.
-5. Create the Blob store on that Vercel project.
-6. Deploy. Run `npm run seed` once against production (or seed locally and migrate) so admin + copy exist.
-7. Attach `sael.pro` as the production domain.
+Already done:
+
+- GitHub: [Kommonio/sael-pro](https://github.com/Kommonio/sael-pro)
+- Vercel project: `kommonio/saelpro` (temp host `saelpro.vercel.app`)
+- Git connected (deploys on push to `master`)
+- Blob store: `saelpro-media` (public), `BLOB_READ_WRITE_TOKEN` on all environments
+- `PAYLOAD_SECRET`, `PREVIEW_SECRET`, `CRON_SECRET`, `NEXT_PUBLIC_SERVER_URL` set on Production/Preview
+
+Still required before the first production deploy:
+
+1. In the Vercel project → **Storage**, create a **Neon** Postgres database and attach it so `DATABASE_URL` is set. The Kommonio Neon org is Vercel-managed, so the database must be created from Vercel, not the Neon CLI.
+2. Redeploy. Then seed production once:
+
+```bash
+# with production DATABASE_URL + PAYLOAD_SECRET in the shell
+npm run seed
+```
+
+3. Attach **sael.pro** as the production domain in Vercel (DNS). After that, set `NEXT_PUBLIC_SERVER_URL` to `https://sael.pro`.
+
+Local Blob ingest after `vercel env pull`:
+
+```bash
+npm run blob:ingest -- --dir ./content/media --prefix projects
+```
 
 ## The Condition
 
