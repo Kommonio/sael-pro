@@ -23,11 +23,9 @@ export default async function LocaleLayout({
   const locale = raw as Locale
 
   const [site, header, footer] = await Promise.all([
-    getGlobal<{ locationLine?: string; email?: string }>('site', locale).catch(() => ({})),
-    getGlobal<{ nav?: { label?: string; href?: string }[]; topologyLabel?: string }>('header', locale).catch(
-      () => ({}),
-    ),
-    getGlobal<{ note?: string; contactLabel?: string }>('footer', locale).catch(() => ({})),
+    getGlobal<{ locationLine?: string; email?: string }>('site', locale),
+    getGlobal<{ nav?: { label?: string; href?: string }[]; topologyLabel?: string }>('header', locale),
+    getGlobal<{ note?: string; contactLabel?: string }>('footer', locale),
   ])
 
   return (

@@ -3,6 +3,8 @@ import Link from 'next/link'
 import type { Locale } from '@/i18n/config'
 import { t } from '@/lib/copy'
 
+import { Logo } from './Logo'
+
 export function SiteFooter({
   locale,
   note,
@@ -21,7 +23,11 @@ export function SiteFooter({
     <footer className="mt-24 border-t border-ink/10">
       <div className="site-shell grid gap-10 py-14 md:grid-cols-12">
         <div className="md:col-span-7">
-          <p className="font-display text-4xl leading-none sm:text-6xl">Saël Simard</p>
+          <Logo
+            markClassName="size-14 sm:size-16"
+            wordmarkClassName="text-4xl sm:text-6xl"
+          />
+          <p className="mt-3 font-display text-2xl leading-none text-ink/55 sm:text-3xl">Simard</p>
           <p className="mt-5 type-lede text-ink/70">
             {note ||
               (locale === 'fr'

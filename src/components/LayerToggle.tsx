@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 
 import { useCondition } from '@/condition/ConditionProvider'
 import type { Locale } from '@/i18n/config'
@@ -12,8 +12,8 @@ export function LayerToggle({
   system,
 }: {
   locale: Locale
-  experience: React.ReactNode
-  system: React.ReactNode
+  experience: ReactNode
+  system: ReactNode
 }) {
   const { stillness, reducedMotion } = useCondition()
   const [layer, setLayer] = useState<'experience' | 'system'>('experience')

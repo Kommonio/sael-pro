@@ -5,6 +5,7 @@ import type { Locale } from '@/i18n/config'
 import { t } from '@/lib/copy'
 
 import { LocaleSwitcher } from './LocaleSwitcher'
+import { Logo } from './Logo'
 
 type NavItem = { label?: string | null; href?: string | null }
 
@@ -32,8 +33,8 @@ export function SiteHeader({
   return (
     <header className="sticky top-0 z-40 border-b border-ink/10 bg-paper/78 backdrop-blur-md">
       <div className="site-shell flex h-[4.25rem] items-center justify-between gap-4">
-        <Link href={`/${locale}`} className="font-display text-[1.35rem] leading-none tracking-tight">
-          Saël
+        <Link href={`/${locale}`} className="no-underline" aria-label="Saël Simard">
+          <Logo markClassName="size-9" />
         </Link>
         <nav className="hidden items-center gap-6 md:flex" aria-label="Primary">
           {items.map((item) => (

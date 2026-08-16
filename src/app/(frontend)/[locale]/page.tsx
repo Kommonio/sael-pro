@@ -7,7 +7,7 @@ import { HeroReveal } from '@/components/HeroReveal'
 import { ProjectCard, type ProjectCardData } from '@/components/ProjectCard'
 import { isLocale, locales, type Locale } from '@/i18n/config'
 import { t } from '@/lib/copy'
-import { getGlobal, getLabItems, getProjects } from '@/lib/payload'
+import { getGlobal, getLabItems, getProjects, toProjectCard } from '@/lib/payload'
 import { RichText } from '@/lib/richText'
 import { getServerSideURL } from '@/utilities/getURL'
 
@@ -20,9 +20,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params
   if (!isLocale(raw)) return {}
-  const site = await getGlobal<{ seoTitle?: string; seoDescription?: string; thesis?: string }>('site', raw).catch(
-    () => ({}),
-  )
+  const site = await getGlobal<{ seoTitle?: string; seoDescription?: string; thesis?: string }>('site', raw)
   return {
     title: site.seoTitle || 'Saël Simard',
     description: site.seoDescription || site.thesis,
@@ -51,19 +49,22 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       contributionsIntro?: string
       labTitle?: string
       closeLine?: string
-    }>('home', locale).catch(() => ({})),
+    }>('home', locale),
     getProjects(locale).catch(() => ({ docs: [] })),
     getLabItems(locale).catch(() => ({ docs: [] })),
   ])
 
-  const featured = (
-    Array.isArray(home.featured) && home.featured.length
-      ? home.featured
+  const featuredFromHome = (home.featured || []).filter(
+    (project): project is ProjectCardData => Boolean(project && typeof project === 'object' && project.slug),
+  )
+  const featured =
+    featuredFromHome.length > 0
+      ? featuredFromHome
       : projects.docs
           .filter((doc) => doc.featured)
           .sort((a, b) => (a.featuredOrder || 99) - (b.featuredOrder || 99))
-  ).filter((project): project is ProjectCardData => Boolean(project && typeof project === 'object' && project.slug))
-  const contributions = projects.docs.filter((doc) => doc.authorship === 'contribution')
+          .map(toProjectCard)
+  const contributions = projects.docs.filter((doc) => doc.authorship === 'contribution').map(toProjectCard)
 
   return (
     <div>
@@ -119,7 +120,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <p className="mt-5 max-w-2xl type-lede text-ink/70">{home.contributionsIntro}</p>
           <div className="mt-12 grid gap-12 md:grid-cols-2">
             {contributions.slice(0, 4).map((project) => (
-              <ProjectCard key={project.slug} project={project as ProjectCardData} locale={locale} size="compact" />
+              <ProjectCard key={project.slug} project={project} locale={locale} size="compact" />
             ))}
           </div>
         </section>

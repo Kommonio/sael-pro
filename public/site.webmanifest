@@ -1,0 +1,22 @@
+{
+  "name": "Saël Simard",
+  "short_name": "Saël",
+  "description": "I design the conditions for an experience.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F1E8D4",
+  "theme_color": "#F1E8D4",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

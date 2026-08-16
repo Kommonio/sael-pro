@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { WorkFilters } from '@/components/WorkFilters'
 import { isLocale, type Locale } from '@/i18n/config'
 import { t } from '@/lib/copy'
-import { getProjects } from '@/lib/payload'
+import { getProjects, toProjectCard } from '@/lib/payload'
 import { getServerSideURL } from '@/utilities/getURL'
 
 export const revalidate = 60
@@ -39,7 +39,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
           : 'Objects, rooms, platforms, systems. One practice.'}
       </h1>
       <div className="mt-16">
-        <WorkFilters locale={locale} projects={docs} />
+        <WorkFilters locale={locale} projects={docs.map(toProjectCard)} />
       </div>
     </div>
   )
