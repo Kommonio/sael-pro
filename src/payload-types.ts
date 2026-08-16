@@ -297,6 +297,7 @@ export interface Media {
    * Stable Vercel Blob key (set by blob-ingest).
    */
   blobPath?: string | null;
+  prefix?: string | null;
   folder?: (number | null) | FolderInterface;
   updatedAt: string;
   createdAt: string;
@@ -895,6 +896,7 @@ export interface MediaSelect<T extends boolean = true> {
   kind?: T;
   poster?: T;
   blobPath?: T;
+  prefix?: T;
   folder?: T;
   updatedAt?: T;
   createdAt?: T;

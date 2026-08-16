@@ -45,8 +45,15 @@ export default buildConfig({
   },
   editor: defaultLexical,
   db: (() => {
-    const url = process.env.DATABASE_URL || 'file:./saelpro.db'
-    if (url.startsWith('postgres://') || url.startsWith('postgresql://')) {
+    const url = (
+      process.env.DATABASE_URL ||
+      process.env.POSTGRES_URL ||
+      process.env.POSTGRES_PRISMA_URL ||
+      ''
+    ).trim()
+    const isPostgres = url.startsWith('postgres://') || url.startsWith('postgresql://')
+
+    if (isPostgres) {
       return postgresAdapter({
         pool: { connectionString: url },
         push:
@@ -56,8 +63,15 @@ export default buildConfig({
               process.env.PAYLOAD_FORCE_DRIZZLE_PUSH === 'true',
       })
     }
+
+    if (process.env.VERCEL) {
+      throw new Error(
+        'Vercel builds require DATABASE_URL or POSTGRES_URL (Neon). SQLite is local-only.',
+      )
+    }
+
     return sqliteAdapter({
-      client: { url },
+      client: { url: url || 'file:./saelpro.db' },
     })
   })(),
   collections: [Projects, LabItems, Pages, Media, Presence, Users],
