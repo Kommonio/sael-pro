@@ -56,7 +56,9 @@ export default buildConfig({
 
     if (isPostgres) {
       return postgresAdapter({
-        prodMigrations: migrations,
+        // Production deploys must never pause for or apply schema changes implicitly.
+        // Migrations are run by the reviewed media import workflow with a backup.
+        prodMigrations: process.env.PAYLOAD_RUN_MIGRATIONS === 'true' ? migrations : undefined,
         pool: { connectionString: url },
         push:
           process.env.PAYLOAD_DB_PUSH === 'false'
