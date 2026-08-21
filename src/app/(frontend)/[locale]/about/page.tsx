@@ -1,14 +1,16 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { MediaFigure } from '@/components/MediaFigure'
+import { ContentEssay, EssayBody, EssaySection } from '@/components/ContentEssay'
 import { isLocale, type Locale } from '@/i18n/config'
-import type { MediaDoc } from '@/lib/media'
+import { catalogAbout } from '@/lib/catalog'
+import { PORTRAIT } from '@/lib/covers'
 import { getGlobal } from '@/lib/payload'
-import { RichText } from '@/lib/richText'
+import { lexicalText } from '@/lib/richText'
 import { getServerSideURL } from '@/utilities/getURL'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -27,60 +29,60 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const locale = raw as Locale
   const about = await getGlobal<{
     title?: string
-    bio?: never
     currentRole?: string
-    portrait?: MediaDoc | number | null
+    bio?: unknown
     phases?: { title?: string; body?: string }[]
     capabilities?: { domain?: string; note?: string }[]
     education?: { place?: string; detail?: string; years?: string }[]
   }>('about', locale)
+  const fallback = catalogAbout(locale)
+  const cmsPhases = (about.phases || []).filter((phase) => phase.title && phase.body)
+  const phases = cmsPhases.length === fallback.phases.length ? cmsPhases : fallback.phases
+  const domains = (about.capabilities || []).filter((cap) => cap.domain)
+  const resolvedDomains = domains.length ? domains : fallback.capabilities
+  const cmsEducation = (about.education || []).filter((item) => item.place && item.detail && item.years)
+  const education = cmsEducation.length === fallback.education.length ? cmsEducation : fallback.education
+  const bio = lexicalText(about.bio as never) || fallback.bio
+  const fr = locale === 'fr'
 
   return (
-    <div className="site-shell py-16 md:py-24">
-      <p className="type-meta text-ink/50">{locale === 'fr' ? 'À propos' : 'About'}</p>
-      <h1 className="type-display mt-4 max-w-4xl">{about.title}</h1>
-      <div className="mt-12 grid gap-12 md:grid-cols-12">
-        <div className="relative min-h-[52vw] md:col-span-5 md:min-h-[64vh]">
-          <MediaFigure
-            media={typeof about.portrait === 'object' ? about.portrait : null}
-            title="Saël Simard"
-            climate="moss"
-            className="absolute inset-0"
-          />
-        </div>
-        <div className="md:col-span-7">
-          <p className="type-lede text-ink/75">{about.currentRole}</p>
-          <div className="mt-8">
-            <RichText data={about.bio} />
-          </div>
-        </div>
-      </div>
-      <div className="mt-24 grid gap-12 md:grid-cols-2">
-        {(about.phases || []).map((phase) => (
-          <section key={phase.title} className="border-t border-ink/10 pt-6">
-            <h2 className="type-title">{phase.title}</h2>
-            <p className="mt-4 text-ink/70">{phase.body}</p>
-          </section>
-        ))}
-      </div>
-      <div className="mt-24">
-        <p className="type-meta text-ink/50">{locale === 'fr' ? 'Domaines' : 'Domains'}</p>
-        <div className="mt-8 grid gap-8 md:grid-cols-3">
-          {(about.capabilities || []).map((cap) => (
-            <div key={cap.domain}>
-              <h3 className="font-display text-2xl">{cap.domain}</h3>
-              <p className="mt-3 text-sm text-ink/65">{cap.note}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="mt-24 border-t border-ink/10 pt-10">
-        {(about.education || []).map((item) => (
-          <p key={item.place} className="mb-3 text-sm text-ink/70">
-            <span className="text-ink">{item.place}</span> — {item.detail} {item.years ? `(${item.years})` : ''}
-          </p>
-        ))}
-      </div>
-    </div>
+    <ContentEssay
+      still={PORTRAIT}
+      meta={fr ? 'À propos' : 'About'}
+      title={about.title || fallback.title}
+      lede={about.currentRole || fallback.currentRole}
+    >
+      <EssayBody text={bio} />
+      {phases.map((phase) => (
+        <EssaySection key={phase.title} title={phase.title as string}>
+          <EssayBody text={phase.body} />
+        </EssaySection>
+      ))}
+      {resolvedDomains.length ? (
+        <EssaySection title={fr ? 'Domaines' : 'Domains'}>
+          <ul className="capability-list">
+            {resolvedDomains.map((domain) => (
+              <li key={domain.domain}>
+                <p className="font-display text-xl">{domain.domain}</p>
+                {domain.note ? <p className="mt-2 essay-copy">{domain.note}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </EssaySection>
+      ) : null}
+      {education.length ? (
+        <EssaySection title={fr ? 'Formation' : 'Education'}>
+          <ul className="education-list">
+            {education.map((item) => (
+              <li key={`${item.place}-${item.years}`}>
+                <p className="type-meta text-ink/45">{item.years}</p>
+                <p className="mt-1 font-display text-xl">{item.place}</p>
+                {item.detail ? <p className="mt-2 essay-copy">{item.detail}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </EssaySection>
+      ) : null}
+    </ContentEssay>
   )
 }

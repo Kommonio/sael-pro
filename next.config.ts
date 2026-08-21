@@ -29,6 +29,9 @@ const nextConfig: NextConfig = {
     localPatterns: [
       { pathname: '/api/media/file/**' },
       { pathname: '/media/**' },
+      { pathname: '/work/**' },
+      { pathname: '/stills/**' },
+      { pathname: '/logo.svg' },
     ],
     qualities: [75, 90, 100],
     remotePatterns: [
@@ -41,6 +44,7 @@ const nextConfig: NextConfig = {
       }),
       { protocol: 'https', hostname: '*.public.blob.vercel-storage.com' },
       { protocol: 'https', hostname: '*.blob.vercel-storage.com' },
+      { protocol: 'https', hostname: 'gz0b2komdddv1cof.public.blob.vercel-storage.com' },
     ],
   },
   webpack: (webpackConfig) => {

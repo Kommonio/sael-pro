@@ -1,13 +1,99 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#F1E8D4"/>
-  <circle cx="1040" cy="90" r="210" fill="#C9A227" fill-opacity="0.22"/>
-  <circle cx="80" cy="580" r="240" fill="#3F5A2E" fill-opacity="0.16"/>
-  <g transform="translate(80 168) scale(6.2)">
-    <path d="M37.6 13.2a15.8 15.8 0 1 0 3.05 9.7" fill="none" stroke="#1A1610" stroke-width="1.15" stroke-linecap="round"/>
-    <path fill="#1A1610" d="M30.15 16.05c0-2.72-2.28-4.58-5.82-4.58-3.95 0-6.42 2.18-6.62 5.38h3.18c.22-1.42 1.42-2.38 3.32-2.38 1.62 0 2.58.82 2.58 2.02 0 1.22-.78 1.82-3.58 2.66-3.58 1.08-5.72 2.62-5.72 5.72 0 3.18 2.42 5.22 6.38 5.22 3.82 0 6.48-2.12 6.78-5.42h-3.22c-.28 1.48-1.58 2.48-3.52 2.48-1.78 0-2.92-.88-2.92-2.22 0-1.22.78-1.88 3.68-2.78 3.62-1.08 5.98-2.62 5.98-6.1Z"/>
-    <circle cx="31.35" cy="10.15" r="1.62" fill="#C9A227"/>
-    <circle cx="36.05" cy="11.55" r="1.62" fill="#C9A227"/>
+  <circle cx="1040" cy="80" r="220" fill="#C9A227" fill-opacity="0.18"/>
+  <g transform="translate(72 95) scale(5.15)">
+  <defs>
+    <clipPath id="ess">
+      <path d="M64.8 18.6c-12.6 0-21.2 6.4-22 16.4h8.6c.6-5.2 4.8-8.4 13-8.4 7.6 0 12.2 3.4 12.2 8.8 0 5.2-3.4 8-13.6 11.4l-5.2 1.8C45.2 52.4 38 59 38 70.2 38 83.4 48.6 92.6 64 92.6c14.2 0 24-8 24.8-19.8h-8.8c-.8 6.4-6 11.2-15.6 11.2-9.2 0-14.8-4.4-14.8-11.2 0-5.6 3.6-8.8 14-12.4l5.2-1.8c14.2-4.8 21.4-12 21.4-24.2 0-13.2-11.2-21.8-25.4-21.8z"/>
+    </clipPath>
+  </defs>
+  <path d="M91.35 55.81L91.12 56.62L90.89 57.43L90.96 58.30L90.87 59.14L90.61 59.94L90.57 60.80L90.41 61.62L89.95 62.37L89.66 63.16L89.42 63.96L88.92 64.67L88.60 65.44L88.47 66.29L88.10 67.04L87.77 67.81L87.63 68.68L87.23 69.42L86.70 70.09L86.36 70.87L85.87 71.55L85.22 72.13L84.81 72.86L84.41 73.61L83.84 74.23L83.45 74.98L83.13 75.79L82.54 76.40L82.00 77.04L81.55 77.77L80.86 78.28L80.14 78.75L79.62 79.42L78.98 79.95L78.28 80.43L77.80 81.15L77.26 81.80L76.56 82.28L76.00 82.92L75.40 83.53L74.60 83.85L73.87 84.28L73.21 84.80L72.40 85.09L71.65 85.47L71.04 86.07L70.31 86.49L69.56 86.87L68.93 87.47L68.19 87.88L67.35 88.08L66.61 88.48L65.83 88.78L64.95 88.84L64.17 89.14L63.42 89.52L62.59 89.68L61.81 90.00L61.07 90.48L60.25 90.65L59.42 90.80L58.63 91.13L57.78 91.17L56.91 91.09L56.10 91.28L55.26 91.37L54.41 91.31L53.60 91.56L52.78 91.80L51.93 91.77L51.10 91.90L50.26 92.07L49.42 91.87L48.58 91.74L47.74 91.78L46.91 91.55L46.09 91.35L45.24 91.46L44.40 91.39L43.58 91.22L42.72 91.31L41.87 91.25L41.08 90.90L40.26 90.75L39.44 90.56L38.69 90.08L37.91 89.80L37.07 89.68L36.30 89.33L35.51 89.07L34.63 89.02L33.85 88.71L33.11 88.31L32.28 88.09L31.55 87.66L30.92 87.05L30.16 86.70L29.42 86.30L28.79 85.73L28.01 85.40L27.19 85.13L26.52 84.61L25.80 84.18L25.01 83.84L24.43 83.21L23.86 82.57L23.16 82.10L22.61 81.45L22.10 80.77L21.37 80.32L20.71 79.80L20.17 79.16L19.45 78.69L18.77 78.17L18.34 77.42L17.80 76.78L17.23 76.16L16.91 75.35L16.49 74.62L15.88 74.02L15.46 73.30L15.01 72.59L14.34 72.02L13.86 71.33L13.53 70.55L13.01 69.87L12.64 69.12L12.50 68.25L12.15 67.49L11.76 66.75L11.60 65.91L11.22 65.16L10.70 64.46L10.46 63.65L10.17 62.87L9.73 62.12L9.59 61.28L9.56 60.42L9.29 59.62L9.20 58.78L9.23 57.92L8.95 57.13L8.69 56.32L8.65 55.48L8.39 54.67L8.12 53.85L8.20 53.00L8.19 52.15L8.08 51.32L8.28 50.47L8.43 49.64L8.30 48.80L8.37 47.96L8.47 47.13L8.29 46.28L8.27 45.43L8.49 44.61L8.50 43.76L8.61 42.92L9.02 42.14L9.23 41.33L9.34 40.50L9.70 39.73L9.90 38.92L9.89 38.04L10.14 37.24L10.42 36.45L10.51 35.59L10.86 34.82L11.37 34.12L11.65 33.32L12.04 32.58L12.60 31.92L12.89 31.13L13.13 30.32L13.60 29.62L13.92 28.83L14.16 28.00L14.71 27.35L15.24 26.69L15.64 25.94L16.28 25.36L16.93 24.81L17.34 24.07L17.87 23.42L18.47 22.84L18.86 22.06L19.32 21.34L19.98 20.81L20.52 20.16L21.08 19.52L21.86 19.13L22.55 18.65L23.13 18.03L23.87 17.61L24.55 17.13L25.06 16.42L25.72 15.90L26.43 15.45L27.02 14.82L27.73 14.37L28.57 14.12L29.29 13.69L30.02 13.29L30.87 13.10L31.60 12.69L32.27 12.16L33.06 11.87L33.80 11.47L34.49 10.93L35.30 10.69L36.14 10.52L36.90 10.16L37.74 10.03L38.61 10.01L39.39 9.70L40.19 9.45L41.03 9.37L41.81 9.02L42.60 8.67L43.45 8.63L44.27 8.47L45.10 8.26L45.96 8.39L46.80 8.46L47.63 8.31L48.47 8.38L49.31 8.45L50.15 8.20L50.99 8.13L51.82 8.23L52.67 8.10L53.52 8.11L54.33 8.41L55.17 8.53L56.00 8.62L56.79 8.97L57.61 9.13L58.47 9.09L59.28 9.31L60.10 9.48L60.98 9.44L61.79 9.70L62.55 10.08L63.37 10.26L64.14 10.62L64.84 11.15L65.64 11.40L66.44 11.64L67.16 12.09L67.98 12.31L68.83 12.48L69.54 12.94L70.28 13.34L71.08 13.64L71.71 14.23L72.32 14.83L73.07 15.21" fill="none" stroke="#1A1610" stroke-width="1.2" stroke-linecap="round"/>
+  <g clip-path="url(#ess)">
+    <path d="M-30.11 -8 L15.89 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M-27.80 -8 L18.20 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M-25.49 -8 L20.51 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M-23.24 -8 L22.76 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M-21.05 -8 L24.95 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M-18.94 -8 L27.06 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M-16.90 -8 L29.10 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M-14.90 -8 L31.10 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M-12.91 -8 L33.09 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M-10.90 -8 L35.10 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M-8.83 -8 L37.17 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M-6.69 -8 L39.31 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M-4.48 -8 L41.52 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M-2.20 -8 L43.80 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M0.11 -8 L46.11 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M2.42 -8 L48.42 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M4.69 -8 L50.69 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M6.90 -8 L52.90 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M9.03 -8 L55.03 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M11.09 -8 L57.09 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M13.10 -8 L59.10 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M15.08 -8 L61.08 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M17.08 -8 L63.08 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M19.13 -8 L65.13 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M21.25 -8 L67.25 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M23.44 -8 L69.44 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M25.71 -8 L71.71 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M28.01 -8 L74.01 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M30.32 -8 L76.32 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M32.61 -8 L78.61 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M34.84 -8 L80.84 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M36.99 -8 L82.99 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M39.07 -8 L85.07 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M41.09 -8 L87.09 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M43.08 -8 L89.08 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M45.07 -8 L91.07 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M47.10 -8 L93.10 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M49.20 -8 L95.20 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M51.37 -8 L97.37 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M53.62 -8 L99.62 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M55.91 -8 L101.91 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M58.23 -8 L104.23 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M60.53 -8 L106.53 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M62.77 -8 L108.77 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M64.95 -8 L110.95 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M67.05 -8 L113.05 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M69.08 -8 L115.08 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M71.08 -8 L117.08 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M73.06 -8 L119.06 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M75.08 -8 L121.08 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M77.16 -8 L123.16 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M79.31 -8 L125.31 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M81.54 -8 L127.54 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M83.82 -8 L129.82 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M86.13 -8 L132.13 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M88.44 -8 L134.44 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M90.70 -8 L136.70 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M92.90 -8 L138.90 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M95.02 -8 L141.02 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M97.07 -8 L143.07 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M99.07 -8 L145.07 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M101.06 -8 L147.06 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M103.07 -8 L149.07 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M105.12 -8 L151.12 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M107.25 -8 L153.25 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M109.46 -8 L155.46 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M111.73 -8 L157.73 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M114.04 -8 L160.04 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M116.35 -8 L162.35 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M118.63 -8 L164.63 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M120.84 -8 L166.84 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M122.99 -8 L168.99 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M125.06 -8 L171.06 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M127.07 -8 L173.07 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M129.06 -8 L175.06 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M131.05 -8 L177.05 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M133.09 -8 L179.09 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M135.20 -8 L181.20 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M137.38 -8 L183.38 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
+      <path d="M139.64 -8 L185.64 108" stroke="#1A1610" stroke-width="1.08" stroke-linecap="square"/>
   </g>
-  <text x="80" y="520" font-family="Georgia, 'Times New Roman', serif" font-size="72" fill="#1A1610">Saël Simard</text>
+  <path d="M64.8 18.6c-12.6 0-21.2 6.4-22 16.4h8.6c.6-5.2 4.8-8.4 13-8.4 7.6 0 12.2 3.4 12.2 8.8 0 5.2-3.4 8-13.6 11.4l-5.2 1.8C45.2 52.4 38 59 38 70.2 38 83.4 48.6 92.6 64 92.6c14.2 0 24-8 24.8-19.8h-8.8c-.8 6.4-6 11.2-15.6 11.2-9.2 0-14.8-4.4-14.8-11.2 0-5.6 3.6-8.8 14-12.4l5.2-1.8c14.2-4.8 21.4-12 21.4-24.2 0-13.2-11.2-21.8-25.4-21.8z" fill="none" stroke="#1A1610" stroke-width="0.45"/>
+  <circle cx="86.2" cy="19.4" r="3.2" fill="#C9A227"/>
+  <circle cx="88.4" cy="30.8" r="3.2" fill="#C9A227"/>
+  </g>
+  <text x="80" y="520" font-family="Georgia, 'Times New Roman', serif" font-size="72" fill="#1A1610">SaÃ«l Simard</text>
   <text x="80" y="568" font-family="Georgia, 'Times New Roman', serif" font-size="24" fill="#1A1610">I design the conditions for an experience.</text>
 </svg>

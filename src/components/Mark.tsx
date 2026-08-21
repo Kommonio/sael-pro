@@ -1,0 +1,31 @@
+import { cn } from '@/utilities/cn'
+
+const S =
+  'M356.58,627l-.07,308.81C158.53,950.05-7.2,789.2.24,590.46c5.41-144.51,104.58-268.87,241.85-307.61,144.46-40.76,297.23,18.05,375.73,145.51,36.76,59.68,54.37,127.94,49.4,198.5l-310.64.14ZM620.86,580.42c-12.03-135.86-115.86-242.57-246.72-260.84-164.59-22.97-312.86,96.51-327.22,260.93l573.93-.1ZM311.28,626.82l-264.6.25c11.8,140.19,124.5,251.9,264.53,262.14l.07-262.39Z'
+const DOT_A =
+  'M170.61,1.94c44.66-9.79,86.35,18.66,95.17,61.16,9,43.41-18.09,85.89-62.32,94.91-41.38,8.43-83.81-17.44-93.61-60.06S125.49,11.83,170.61,1.94Z'
+const DOT_B =
+  'M463.52,1.81c45.03-9.48,86.15,19.33,95.04,62.03s-19.04,85-62.33,94.09-84.09-17.56-93.67-59.68c-9.67-42.53,15.81-86.94,60.96-96.44Z'
+
+export function Mark({
+  className,
+  title = 'Saël Simard',
+}: {
+  className?: string
+  title?: string
+}) {
+  return (
+    <svg
+      viewBox="0 0 668.05 936.68"
+      className={cn('h-11 w-auto text-current', className)}
+      role="img"
+      aria-label={title}
+    >
+      <title>{title}</title>
+      <path d={S} fill="currentColor" />
+      <path className="logo-dot logo-dot-a" d={DOT_A} fill="var(--ochre)" />
+      <path className="logo-dot logo-dot-b" d={DOT_B} fill="var(--ochre)" />
+      <path className="logo-axis" d="M170.61 80 L463.52 82" fill="none" stroke="var(--ochre)" strokeWidth="6" />
+    </svg>
+  )
+}

@@ -1,12 +1,16 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
+import { ContentEssay, EssayBody, EssaySection } from '@/components/ContentEssay'
 import { isLocale, type Locale } from '@/i18n/config'
+import { catalogPractice, overlayPracticeCopy } from '@/lib/catalog'
+import { SECTION } from '@/lib/covers'
 import { getGlobal } from '@/lib/payload'
-import { RichText } from '@/lib/richText'
+import { lexicalText } from '@/lib/richText'
 import { getServerSideURL } from '@/utilities/getURL'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -29,27 +33,37 @@ export default async function PracticePage({ params }: { params: Promise<{ local
   const practice = await getGlobal<{
     title?: string
     intro?: string
-    sections?: { title?: string; body?: never }[]
+    sections?: { title?: string; body?: unknown }[]
   }>('practice', locale)
+  const fallback = catalogPractice(locale)
+  const cmsSections = (practice.sections || []).map((section) => ({
+    title: section.title,
+    body: lexicalText(section.body as never) || '',
+  }))
+  const chain = overlayPracticeCopy(fallback.chain, cmsSections)
+  const sections = overlayPracticeCopy(fallback.sections, cmsSections)
 
   return (
-    <div className="site-shell py-16 md:py-24">
-      <p className="type-meta text-ink/50">{locale === 'fr' ? 'Pratique' : 'Practice'}</p>
-      <h1 className="type-display mt-4 max-w-4xl">{practice.title}</h1>
-      <p className="mt-8 max-w-2xl type-lede text-ink/75">{practice.intro}</p>
-      <div className="mt-20 grid gap-16">
-        {(practice.sections || []).map((section, i) => (
-          <section key={section.title} className="grid gap-8 border-t border-ink/10 pt-10 md:grid-cols-12">
-            <p className="font-mono text-xs text-ink/40 md:col-span-2">0{i + 1}</p>
-            <div className="md:col-span-10">
-              <h2 className="type-title">{section.title}</h2>
-              <div className="mt-5">
-                <RichText data={section.body} />
-              </div>
-            </div>
-          </section>
+    <ContentEssay
+      still={SECTION.practice}
+      meta={locale === 'fr' ? 'Pratique' : 'Practice'}
+      title={practice.title || fallback.title}
+      lede={practice.intro || fallback.intro}
+    >
+      <ol className="practice-chain">
+        {chain.map((step, i) => (
+          <li key={step.title}>
+            <p className="type-meta text-ink/45">{String(i + 1).padStart(2, '0')}</p>
+            <h3>{step.title}</h3>
+            <EssayBody text={step.plain} />
+          </li>
         ))}
-      </div>
-    </div>
+      </ol>
+      {sections.map((section) => (
+        <EssaySection key={section.title} title={section.title}>
+          <EssayBody text={section.plain} />
+        </EssaySection>
+      ))}
+    </ContentEssay>
   )
 }

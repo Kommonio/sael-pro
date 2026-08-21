@@ -33,6 +33,7 @@ type ConditionContextValue = ConditionState & {
   attend: (input: AttendInput) => void
   remember: (slug: string) => void
   setStillness: (value: boolean) => void
+  setClimateNow: (hint: ClimateHint) => void
 }
 
 const ConditionContext = createContext<ConditionContextValue | null>(null)
@@ -77,6 +78,7 @@ export function ConditionProvider({ children }: { children: ReactNode }) {
   const [stillness, setStillness] = useState(false)
   const [occupancy, setOccupancy] = useState(1)
   const [reducedMotion, setReducedMotion] = useState(false)
+  const [climateNow, setClimateNowState] = useState<ClimateHint | null>(null)
   const idleTimer = useRef<number | null>(null)
 
   useEffect(() => {
@@ -89,9 +91,18 @@ export function ConditionProvider({ children }: { children: ReactNode }) {
     return () => media.removeEventListener('change', onChange)
   }, [])
 
+  const setClimateNow = useCallback((hint: ClimateHint) => {
+    setClimateNowState(hint)
+    document.documentElement.dataset.climate = hint
+  }, [])
+
   useEffect(() => {
-    document.documentElement.dataset.climate = dominantClimate(attended, remembered)
-  }, [attended, remembered])
+    document.documentElement.dataset.climate = climateNow || dominantClimate(attended, remembered)
+  }, [attended, remembered, climateNow])
+
+  useEffect(() => {
+    document.documentElement.dataset.still = stillness ? '1' : '0'
+  }, [stillness])
 
   useEffect(() => {
     const markActive = () => {
@@ -173,8 +184,9 @@ export function ConditionProvider({ children }: { children: ReactNode }) {
       attend,
       remember,
       setStillness,
+      setClimateNow,
     }
-  }, [attended, remembered, stillness, reducedMotion, occupancy, attend, remember])
+  }, [attended, remembered, stillness, reducedMotion, occupancy, attend, remember, setClimateNow])
 
   return <ConditionContext.Provider value={value}>{children}</ConditionContext.Provider>
 }

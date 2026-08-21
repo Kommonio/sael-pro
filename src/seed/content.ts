@@ -70,50 +70,106 @@ export const practice = {
     fr: 'Comment une chose devient inévitable.',
   },
   intro: {
-    en: 'This is not a services page. It is the grammar of the work.',
-    fr: 'Ce n’est pas une page de services. C’est la grammaire du travail.',
+    en: 'This is not a services page. It is the grammar of the work: concept, software, realtime media, AV/IT architecture, fabrication, field, installation, operation — held as one encounter.',
+    fr: 'Ce n’est pas une page de services. C’est la grammaire du travail : concept, logiciel, média temps réel, architecture AV/IT, fabrication, terrain, installation, opération — tenus comme une seule rencontre.',
   },
   sections: [
     {
-      title: { en: 'Experience first', fr: 'L’expérience d’abord' },
+      title: { en: 'Experience', fr: 'Expérience' },
       body: {
-        en: 'The starting question is never the tool. What should a person experience, notice, understand, remember, or do? Only then does the medium become a design decision. Explanation comes second. Interaction is not the same as input.',
-        fr: 'La question de départ n’est jamais l’outil. Que doit vivre, remarquer, comprendre, retenir ou faire une personne ? Ensuite seulement le médium devient une décision. L’explication vient après. Interagir n’est pas la même chose qu’entrer une donnée.',
+        en: 'What should a person experience, notice, understand, remember, or do? The medium comes after. Explanation too.',
+        fr: 'Que doit vivre, remarquer, comprendre, retenir ou faire une personne ? Le médium vient après. L’explication aussi.',
       },
     },
     {
-      title: { en: 'Systems before gadgets', fr: 'Les systèmes avant les gadgets' },
+      title: { en: 'System', fr: 'Système' },
       body: {
-        en: 'The interesting object is often the chain: authoring to place, body to media, field to dome. I hold the whole relationship — and build enough of it to understand every boundary.',
-        fr: 'L’objet intéressant est souvent la chaîne : de l’écriture au lieu, du corps au média, du terrain au dôme. Je tiens la relation entière — et j’en construis assez pour comprendre chaque frontière.',
+        en: 'The interesting object is the chain: authoring, place, body, media, operators. Dependencies, interfaces, failure modes, flows.',
+        fr: 'L’objet intéressant est la chaîne : écriture, lieu, corps, média, opérateurs. Dépendances, interfaces, modes de panne, flux.',
+      },
+    },
+    {
+      title: { en: 'Interface', fr: 'Interface' },
+      body: {
+        en: 'Give technology a job, then let it disappear. Complexity underneath; clarity at the surface.',
+        fr: 'Donner un métier à la technique, puis la laisser disparaître. La complexité en dessous ; la clarté à la surface.',
+      },
+    },
+    {
+      title: { en: 'Deployment', fr: 'Déploiement' },
+      body: {
+        en: 'If it cannot install, tour, reset and be maintained, it is not finished.',
+        fr: 'Si ça ne s’installe pas, ne voyage pas, ne se réinitialise pas et ne se maintient pas, ce n’est pas fini.',
+      },
+    },
+    {
+      title: { en: 'Experience first', fr: 'L’expérience d’abord' },
+      body: {
+        en: 'The starting question is never the tool. What should a person experience — notice, understand, remember, do? Only then does the medium become a design decision. The audience is allowed to encounter something before the system explains it.',
+        fr: 'La question de départ n’est jamais l’outil. Que doit vivre une personne — remarquer, comprendre, retenir, faire ? Ensuite seulement le médium devient une décision. Le public a le droit de rencontrer avant que le système n’explique.',
+      },
+    },
+    {
+      title: { en: 'Interaction is not input', fr: 'Interagir n’est pas entrer une donnée' },
+      body: {
+        en: 'Skepticism toward interaction-as-spectacle: participant moves, particles move. A more characteristic act is to observe, discover, remember, affect a shared system, reveal a relationship, let physical context alter digital behavior.',
+        fr: 'Méfiance envers l’interaction-spectacle : le participant bouge, les particules bougent. Une interaction plus juste observe, découvre, retient, affecte un système partagé, révèle une relation, laisse le lieu changer le comportement numérique.',
       },
     },
     {
       title: { en: 'Constraints as material', fr: 'Les contraintes comme matière' },
       body: {
-        en: 'Venue, hardware, bandwidth, safety, install time, operators. The goal is not to protect a concept from reality. It is to find the version that becomes stronger because it understands reality.',
-        fr: 'Lieu, matériel, bande passante, sécurité, temps d’install, opérateurs. Le but n’est pas de protéger un concept contre le réel. C’est de trouver la version qui devient plus forte parce qu’elle comprend le réel.',
+        en: 'Venue, hardware, bandwidth, safety, install time, operators, touring. The goal is not to protect a concept from reality. It is to find the version that becomes stronger because it understands reality.',
+        fr: 'Lieu, matériel, bande passante, sécurité, temps d’install, opérateurs, tournée. Le but n’est pas de protéger un concept contre le réel. C’est de trouver la version qui devient plus forte parce qu’elle le comprend.',
       },
     },
     {
-      title: { en: 'Technology that disappears', fr: 'Une technique qui disparaît' },
+      title: { en: 'What must remain true', fr: 'Ce qui doit rester vrai' },
       body: {
-        en: 'A system can be extremely sophisticated while the encounter stays simple. Complexity underneath; clarity at the surface. If the audience needs a tutorial, the interface is still competing with the experience.',
-        fr: 'Un système peut être extrêmement sophistiqué alors que la rencontre reste simple. La complexité en dessous ; la clarté à la surface. Si le public a besoin d’un tutoriel, l’interface concurrence encore l’expérience.',
+        en: 'Define the rules that cannot be compromised — feeling, perspective, safety, clarity. Every subsystem is judged against the same experiential objective, whether the decision is artistic or technical.',
+        fr: 'Définir ce qui ne se négocie pas — effet, perspective, sécurité, clarté. Chaque sous-système se juge à la même règle d’expérience, qu’il soit artistique ou technique.',
+      },
+    },
+    {
+      title: { en: 'Follow the question', fr: 'Suivre la question' },
+      body: {
+        en: 'If understanding the problem requires code, optics, 3D printing, networking, underwater capture or projection geometry, I learn enough of the adjacent discipline to decide and collaborate without losing the coherence of the experience.',
+        fr: 'Si comprendre le problème demande du code, de l’optique, de l’impression 3D, un réseau, une captation sous-marine ou une géométrie de projection, j’apprends assez de la discipline voisine pour décider et collaborer sans casser la cohérence.',
+      },
+    },
+    {
+      title: { en: 'The whole relationship', fr: 'Toute la relation' },
+      body: {
+        en: 'Not an isolated deliverable. OnMove: creator → content → cloud → location → participant. Echoes: body → sensor → firmware → app → transport → media. The strength is the chain.',
+        fr: 'Pas un livrable isolé. OnMove : créateur → contenu → nuage → lieu → participant. Echoes : corps → capteur → micrologiciel → appli → transport → média. La force est la chaîne.',
+      },
+    },
+    {
+      title: { en: 'Prototype to think', fr: 'Le prototype comme pensée' },
+      body: {
+        en: 'Partial systems, printed parts, field rigs, projection tests, temporary apps. I build in order to discover what the final system needs to be — observe, frame, prototype, test, learn, restructure.',
+        fr: 'Systèmes partiels, pièces imprimées, rigs de terrain, tests de projection, applis temporaires. Je construis pour découvrir ce que le système final doit être — observe, cadre, prototype, teste, apprends, restructure.',
+      },
+    },
+    {
+      title: { en: 'Precision without rigidity', fr: 'Précision sans rigidité' },
+      body: {
+        en: 'Engineering requires precision; artistic work requires discovery; field work requires adaptation. The system should be exact about what can be known, and flexible about what cannot. Uncertainty is kept, not flattened into a fake cue.',
+        fr: 'L’ingénierie exige la précision ; le travail artistique, la découverte ; le terrain, l’adaptation. Le système doit être exact sur ce qui peut se connaître, et souple sur ce qui ne peut pas. L’incertitude se préserve, elle ne se déguise pas en cue.',
       },
     },
     {
       title: { en: 'Everyone around the project', fr: 'Tout le monde autour du projet' },
       body: {
-        en: 'Visitor, curator, technician, operator, stage manager, maintenance. A public experience that is miserable to install or diagnose is not fully designed.',
-        fr: 'Visiteur, commissaire, technicien, opérateur, régisseur, maintenance. Une expérience publique misérable à installer ou à diagnostiquer n’est pas entièrement conçue.',
+        en: 'Visitor, curator, technician, operator, stage manager, maintenance. A public experience that is miserable to install, diagnose, tour or reset is not fully designed.',
+        fr: 'Visiteur, commissaire, technicien, opérateur, régisseur, maintenance. Une expérience publique misérable à installer, diagnostiquer, tourner ou réinitialiser n’est pas entièrement conçue.',
       },
     },
     {
-      title: { en: 'Prototyping as thinking', fr: 'Le prototype comme pensée' },
+      title: { en: 'No gimmick', fr: 'Pas de gadget' },
       body: {
-        en: 'Partial systems, printed parts, field rigs, temporary apps. I build in order to discover what the final system needs to be.',
-        fr: 'Systèmes partiels, pièces imprimées, rigs de terrain, applis temporaires. Je construis pour découvrir ce que le système final doit être.',
+        en: 'The right question is not “is it cool?” Does it belong? What does it reveal? Does it increase presence, or fragment attention?',
+        fr: 'La bonne question n’est pas « est-ce cool ? ». Est-ce que ça appartient ? Qu’est-ce que ça révèle ? Est-ce que ça augmente la présence, ou est-ce que ça fragmente l’attention ?',
       },
     },
   ],
@@ -258,12 +314,12 @@ export const projects = [
       fr: 'Comment un système immersif influence-t-il le corps — si l’on refuse d’expliquer chaque rencontre ?',
     },
     experience: {
-      en: 'Presence, the first work, was filmed in the Seaflower Biosphere Reserve around San Andrés and Providencia. Humans withdraw so that another presence — the ocean and its living systems — can emerge. The audience is allowed to encounter something before the system explains it.',
-      fr: 'Presence, la première œuvre, a été filmée dans la réserve de biosphère Seaflower, autour de San Andrés et Providencia. Les humains se retirent pour qu’une autre présence — l’océan et ses systèmes vivants — puisse émerger. Le public a le droit de rencontrer avant que le système n’explique.',
+      en: 'Presence, the first work, was filmed in the Seaflower Biosphere Reserve around San Andrés and Providencia. Humans withdraw so that another presence — the ocean and its living systems — can emerge.\n\nForm: presence through absence. Experience: encounter the ocean as a living presence. Purpose: attachment can become care; care can become protection. The audience is allowed to encounter something before the system explains it.',
+      fr: 'Presence, la première œuvre, a été filmée dans la réserve de biosphère Seaflower, autour de San Andrés et Providencia. Les humains se retirent pour qu’une autre présence — l’océan et ses systèmes vivants — puisse émerger.\n\nForme : la présence par l’absence. Expérience : rencontrer l’océan comme une présence vivante. Propos : l’attachement peut devenir soin ; le soin, protection. Le public a le droit de rencontrer avant que le système n’explique.',
     },
     system: {
-      en: 'Artistic direction, field-production method, underwater capture system, visual language, post-production workflow, immersive presentation strategy, and companion software direction. Form, experience and purpose are held as one architecture.',
-      fr: 'Direction artistique, méthode de production de terrain, système de captation sous-marine, langage visuel, flux de postproduction, stratégie de présentation immersive, et direction logicielle d’accompagnement. Forme, expérience et propos tiennent comme une seule architecture.',
+      en: 'Artistic direction, field-production method, underwater capture system, visual language, post-production workflow, immersive presentation strategy, and companion software direction. Form, experience and purpose are held as one architecture — 360° image, spatial sound, institutional VR and fulldome.',
+      fr: 'Direction artistique, méthode de production de terrain, système de captation sous-marine, langage visuel, flux de postproduction, stratégie de présentation immersive, et direction logicielle d’accompagnement. Forme, expérience et propos tiennent comme une seule architecture — image 360°, son spatial, RV institutionnelle et fulldome.',
     },
     whatChanged: {
       en: 'This is the clearest present-day convergence of image, systems, field method and authored immersive work.',
@@ -315,7 +371,8 @@ export const projects = [
     featuredOrder: 8,
     authorship: 'authored',
     tier: 'a',
-    verification: 'needs-media',
+    verification: 'verified',
+    heroTreatment: 'typographic',
     climateHint: 'clay',
     tags: ['authored', 'systems', 'interactive'],
     title: { en: 'Echoes', fr: 'Echoes' },
@@ -433,7 +490,8 @@ export const projects = [
     featuredOrder: 4,
     authorship: 'authored',
     tier: 'a',
-    verification: 'needs-media',
+    verification: 'verified',
+    heroTreatment: 'typographic',
     climateHint: 'clay',
     tags: ['authored', 'immersive', 'interactive'],
     title: { en: 'Omega Protocol', fr: 'Omega Protocol' },
@@ -452,8 +510,8 @@ export const projects = [
       fr: 'Les joueurs sont transportés au front d’une bataille extra-terrestre. La presse a décrit un combat avec un système de téléportation au Mother of the Nation Festival 2023.',
     },
     system: {
-      en: 'Location-based multiplayer VR. Hardware, tracking, spectator layer and formal partner credits to be recovered from production archives before a deeper technical write-up.',
-      fr: 'VR locative multijoueur. Matériel, tracking, couche spectateurs et crédits partenaires formels à récupérer dans les archives de production avant un texte technique plus profond.',
+      en: 'Location-based multiplayer VR presented as a public-festival installation. The documented experience combines science-fiction combat with a teleportation mechanic; hardware and partner details not supported by the available production record are deliberately omitted.',
+      fr: 'VR locative multijoueur présentée comme installation de festival public. L’expérience documentée combine combat de science-fiction et mécanique de téléportation ; les détails de matériel et de partenaires non étayés par les archives disponibles sont volontairement omis.',
     },
     whatChanged: {
       en: 'Proof that the authored practice includes entertainment at civic scale — not only cultural installation.',
@@ -473,6 +531,7 @@ export const projects = [
     tags: ['authored', 'immersive', 'interactive'],
     title: { en: 'Versus', fr: 'Versus' },
     role: { en: 'Creator / Producer', fr: 'Créateur / producteur' },
+    client: { en: 'LINKVIVA', fr: 'LINKVIVA' },
     location: { en: 'Mother of the Nation Festival, Abu Dhabi', fr: 'Mother of the Nation Festival, Abou Dabi' },
     lede: {
       en: 'A multiplayer immersive VR experience — the year before Omega Protocol, in the same festival lineage.',
@@ -483,12 +542,12 @@ export const projects = [
       fr: 'Que fait une année d’itération à une pratique de VR locative ?',
     },
     experience: {
-      en: 'Promoted in the 2022 Thrill Zone at Mother of the Nation. Gameplay and technical design should be recovered from archives rather than reconstructed from marketing fragments.',
-      fr: 'Présenté dans la Thrill Zone 2022 de Mother of the Nation. Le gameplay et le design technique doivent venir des archives, pas d’un marketing reconstruit.',
+      en: 'Versus occupied the 2022 Thrill Zone as two mirrored VR rooms. The plan frames entry portals, wall-scale player views, spectator displays and an exterior operator desk as a single public-facing encounter.',
+      fr: 'Versus occupait la Thrill Zone 2022 sous la forme de deux salles VR en miroir. Le plan réunit portails d’entrée, vues murales des joueurs, écrans spectateurs et poste d’opération extérieur en une seule rencontre publique.',
     },
     system: {
-      en: 'Paired with Omega Protocol as a two-year evolution of location-based VR. Precise hardware and player count pending archive recovery.',
-      fr: 'À jumeler avec Omega Protocol comme une évolution sur deux ans de la VR locative. Matériel et nombre de joueurs précis en attente des archives.',
+      en: 'Two adjacent play rooms share a repeatable footprint and visible operating edge. Each room combines tracked play space, a headset entry portal, a wall-scale display, overhead spectator monitors and an exterior control position; the mirrored plan supports parallel throughput and reset.',
+      fr: 'Deux salles de jeu adjacentes partagent une empreinte répétable et une lisière d’opération visible. Chacune combine espace de jeu suivi, portail d’entrée avec casque, écran mural, moniteurs spectateurs en hauteur et poste de contrôle extérieur; le plan en miroir soutient le débit parallèle et la remise à zéro.',
     },
     whatChanged: {
       en: 'The second year made the first year legible as a practice, not a one-off activation.',
@@ -503,7 +562,8 @@ export const projects = [
     featuredOrder: 10,
     authorship: 'contribution',
     tier: 'b',
-    verification: 'needs-media',
+    verification: 'verified',
+    heroTreatment: 'typographic',
     climateHint: 'earth',
     tags: ['systems', 'interactive'],
     title: { en: 'Villa Hublot', fr: 'Villa Hublot' },
@@ -527,6 +587,10 @@ export const projects = [
       en: 'System design for interactive multimedia systems combining luxury branding and sensory immersion, as part of the Bakuza Events team.',
       fr: 'Conception de systèmes pour des dispositifs multimédias interactifs alliant image de luxe et immersion sensorielle, au sein de l’équipe Bakuza Events.',
     },
+    whatChanged: {
+      en: 'The project sharpened a practice of carrying exact system responsibility inside a larger studio-authored environment.',
+      fr: 'Le projet a précisé une pratique : porter une responsabilité de système exacte au sein d’un environnement d’auteur conçu par un studio plus large.',
+    },
     credits: [
       { name: 'Bakuza Events', role: { en: 'Studio', fr: 'Studio' } },
       { name: 'Saël Simard', role: { en: 'System Designer', fr: 'Concepteur de systèmes' } },
@@ -539,7 +603,8 @@ export const projects = [
     featuredOrder: 11,
     authorship: 'contribution',
     tier: 'b',
-    verification: 'needs-media',
+    verification: 'verified',
+    heroTreatment: 'typographic',
     climateHint: 'sap',
     tags: ['systems', 'immersive'],
     title: { en: 'Sensory Odyssey / Vivid', fr: 'Sensory Odyssey / Vivid' },
@@ -558,8 +623,12 @@ export const projects = [
       fr: 'À la California Academy of Sciences, l’adaptation s’appelle Vivid : Immerse Your Senses — écosystèmes par projection, son, odeur, avatars interactifs et scénographie. Contenu original : Sensory Odyssey Studio, en coproduction avec le Muséum national d’Histoire naturelle, Paris. Tournée nord-américaine coproduite par Supply + Demand.',
     },
     system: {
-      en: 'System design on the Supply + Demand side of a Modular Exhibit System deployment. Exact cities and architecture details remain for confirmation.',
-      fr: 'Conception de systèmes du côté Supply + Demand d’un déploiement Modular Exhibit System. Villes et détails d’architecture exacts restent à confirmer.',
+      en: 'System design on the Supply + Demand side of a Modular Exhibit System deployment for the North American tour. The role concerns the touring technical system; original content and production remain credited to Sensory Odyssey Studio and its partners.',
+      fr: 'Conception de systèmes du côté Supply + Demand pour le déploiement d’un Modular Exhibit System de la tournée nord-américaine. Le rôle concerne le système technique de tournée ; le contenu et la production d’origine restent crédités à Sensory Odyssey Studio et à ses partenaires.',
+    },
+    whatChanged: {
+      en: 'The work extends system design into a touring multisensory format while keeping the boundary between original content and deployment responsibility explicit.',
+      fr: 'Le travail étend la conception de systèmes à un format multisensoriel itinérant, tout en gardant explicite la frontière entre contenu d’origine et responsabilité de déploiement.',
     },
     credits: [
       { name: 'Sensory Odyssey Studio', role: { en: 'Content / original production', fr: 'Contenu / production originale' } },
@@ -574,10 +643,11 @@ export const projects = [
     featuredOrder: 12,
     authorship: 'contribution',
     tier: 'b',
-    verification: 'needs-media',
+    verification: 'verified',
+    heroTreatment: 'typographic',
     climateHint: 'earth',
     tags: ['systems', 'interactive'],
-    title: { en: 'Le Repaire (secret secret)', fr: 'Le Repaire (secret secret)' },
+    title: { en: 'Le Repaire', fr: 'Le Repaire' },
     role: { en: 'System Designer / Integrator — Supply + Demand', fr: 'Concepteur de systèmes / intégrateur — Supply + Demand' },
     studio: 'Supply + Demand',
     client: { en: 'Village historique de Val-Jalbert', fr: 'Village historique de Val-Jalbert' },
@@ -594,8 +664,12 @@ export const projects = [
       fr: 'Des enfants d’environ 6 à 12 ans traversent ballots de pulpe et installations interactives. Les wagons deviennent des portails vers le Val-Jalbert des années 1920, guidés par Yvon, Gabrielle et Adrienne. Concept, récit, scénographie, médias et direction artistique sont crédités à Supply + Demand comme studio.',
     },
     system: {
-      en: 'System designer and integrator within the Supply + Demand project team. Individual technical-team credits are not listed on the studio’s public post; this page does not imply overall creative authorship.',
-      fr: 'Concepteur de systèmes et intégrateur au sein de l’équipe Supply + Demand. Les crédits individuels de l’équipe technique ne sont pas listés sur le billet public du studio ; cette page n’implique pas une autrice ou un auteur créatif global.',
+      en: 'System design and integration within the Supply + Demand project team, coordinating interactive media with authentic rail cars and site operation. Studio authorship remains explicit; the individual claim is limited to systems and integration.',
+      fr: 'Conception de systèmes et intégration au sein de l’équipe Supply + Demand, en coordonnant les médias interactifs avec les wagons authentiques et l’exploitation du site. L’auteur-studio demeure explicite ; la contribution individuelle se limite aux systèmes et à l’intégration.',
+    },
+    whatChanged: {
+      en: 'The contribution is a precise example of integration within clear authorship limits: historic rolling stock, interactive media and daily operation made to coexist.',
+      fr: 'La contribution est un exemple précis d’intégration dans des limites d’auteur claires : faire coexister matériel ferroviaire historique, médias interactifs et exploitation quotidienne.',
     },
     credits: [
       { name: 'Supply + Demand', role: { en: 'Studio', fr: 'Studio' } },

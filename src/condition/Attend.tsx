@@ -19,11 +19,29 @@ export function Attend({ slug, title, authorship, climateHint }: Props) {
 
   useEffect(() => {
     const node = document.querySelector(`[data-attend="${slug}"]`) || document.body
+    const tick = window.setInterval(() => {
+      if (!visible.current) return
+      attend({
+        slug,
+        title,
+        authorship,
+        climateHint,
+        dwellMs: 1000,
+      })
+    }, 1000)
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           visible.current = true
           started.current = performance.now()
+          attend({
+            slug,
+            title,
+            authorship,
+            climateHint,
+            dwellMs: 0,
+          })
         } else if (visible.current) {
           visible.current = false
           attend({
@@ -35,10 +53,11 @@ export function Attend({ slug, title, authorship, climateHint }: Props) {
           })
         }
       },
-      { threshold: 0.45 },
+      { threshold: 0.45, rootMargin: '0px 0px -10% 0px' },
     )
     io.observe(node)
     return () => {
+      window.clearInterval(tick)
       if (visible.current) {
         attend({
           slug,
@@ -52,5 +71,5 @@ export function Attend({ slug, title, authorship, climateHint }: Props) {
     }
   }, [attend, authorship, climateHint, slug, title])
 
-  return <span data-attend={slug} className="sr-only" />
+  return <span data-attend-probe={slug} className="sr-only" />
 }

@@ -14,6 +14,7 @@ export type ProjectCardData = {
   studio?: string | null
   authorship: 'authored' | 'collaborative' | 'contribution' | 'experiment'
   lede: string
+  tags?: string[] | null
   climateHint?: string | null
   hero?: MediaDoc | number | null
 }
@@ -37,21 +38,23 @@ export function ProjectCard({
           <div className={`relative ${height}`}>
             <MediaFigure
               media={typeof project.hero === 'object' ? project.hero : null}
+              slug={project.slug}
               title={project.title}
               climate={project.climateHint || 'earth'}
               className="absolute inset-0"
               sizes={size === 'xl' ? '100vw' : '(min-width: 1024px) 50vw, 100vw'}
             />
           </div>
-          <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
-            <div>
+          <div className="mt-5 grid gap-3 md:grid-cols-12 md:items-end">
+            <div className="md:col-span-7">
               <p className="type-meta text-ink/50">
                 {project.studio ? `${project.studio} · ` : ''}
                 {project.year}
               </p>
               <h2 className="type-title mt-1">{project.title}</h2>
+              {project.lede ? <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink/65">{project.lede}</p> : null}
             </div>
-            <p className="max-w-sm text-sm leading-snug text-ink/70">{project.role}</p>
+            <p className="md:col-span-5 md:text-right text-sm leading-snug text-ink/70">{project.role}</p>
           </div>
         </Link>
       </article>

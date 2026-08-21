@@ -1,11 +1,15 @@
 import { notFound } from 'next/navigation'
 import React from 'react'
 
+import { ThreadBridge } from '@/components/ThreadBridge'
+import { SetHtmlLang } from '@/components/SetHtmlLang'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
-import { SetHtmlLang } from '@/components/SetHtmlLang'
 import { isLocale, locales, type Locale } from '@/i18n/config'
 import { getGlobal } from '@/lib/payload'
+
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
@@ -31,14 +35,15 @@ export default async function LocaleLayout({
   return (
     <>
       <SetHtmlLang locale={locale} />
-      <SiteHeader locale={locale} nav={header.nav} topologyLabel={header.topologyLabel} />
+      <ThreadBridge />
+      <SiteHeader locale={locale} nav={header.nav} />
       <main className="flex-1">{children}</main>
       <SiteFooter
         locale={locale}
         note={footer.note}
         contactLabel={footer.contactLabel}
-        email={site.email}
-        location={site.locationLine}
+        email={site.email || 'hello@sael.pro'}
+        location={site.locationLine || 'Montréal'}
       />
     </>
   )

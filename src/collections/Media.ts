@@ -21,7 +21,7 @@ export const Media: CollectionConfig = {
   admin: {
     defaultColumns: ['filename', 'kind', 'alt', 'credit', 'updatedAt'],
     description:
-      'Site images and short clips stored on Vercel Blob. Photographer / studio credit is required when the asset is not Saël’s own.',
+      'Site images, videos, and WebVTT caption tracks stored on Vercel Blob. Photographer / studio credit is required when the asset is not Saël’s own.',
     group: 'Content',
   },
   fields: [
@@ -56,8 +56,31 @@ export const Media: CollectionConfig = {
         { label: 'Image', value: 'image' },
         { label: 'Video', value: 'video' },
         { label: 'Diagram', value: 'diagram' },
+        { label: 'Caption track (WebVTT)', value: 'captions' },
       ],
       admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'purpose',
+      type: 'select',
+      options: [
+        { label: 'Informative — describe it', value: 'informative' },
+        { label: 'Decorative — empty alt text', value: 'decorative' },
+      ],
+      admin: {
+        description:
+          'Required before project media is publicly ready. Informative assets need localized alt text; decorative assets must use empty alt text.',
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'rightsConfirmed',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description: 'Confirm that this site may publicly display the asset.',
         position: 'sidebar',
       },
     },
@@ -88,7 +111,14 @@ export const Media: CollectionConfig = {
     staticDir: path.resolve(dirname, '../../public/media'),
     adminThumbnail: 'thumbnail',
     focalPoint: true,
-    mimeTypes: ['image/*', 'video/mp4', 'video/webm', 'video/quicktime', 'video/x-m4v'],
+    mimeTypes: [
+      'image/*',
+      'video/mp4',
+      'video/webm',
+      'video/quicktime',
+      'video/x-m4v',
+      'text/vtt',
+    ],
     imageSizes: [
       { name: 'thumbnail', width: 300 },
       { name: 'square', width: 500, height: 500 },

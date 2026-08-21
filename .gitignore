@@ -18,6 +18,8 @@ next-env.d.ts
 *.db
 *.db-*
 tsconfig.tsbuildinfo
+playwright-report/
+test-results/
 public/media/**
 !public/media/.gitkeep
 public/robots.txt

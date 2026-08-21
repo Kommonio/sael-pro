@@ -3,8 +3,13 @@ import type { NextConfig } from 'next'
 export const redirects: NextConfig['redirects'] = async () => {
   return [
     {
-      source: '/work/:path*',
-      destination: '/en/work/:path*',
+      source: '/work',
+      destination: '/en/work',
+      permanent: false,
+    },
+    {
+      source: '/work/:slug([^/.]+)',
+      destination: '/en/work/:slug',
       permanent: false,
     },
     {

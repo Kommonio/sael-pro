@@ -154,6 +154,8 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Case-study-grade Work only. Small utilities and lightweight prototypes belong in Lab Items. Publishing and factual verification are separate states.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
  */
@@ -173,11 +175,17 @@ export interface Project {
   tier: 'a' | 'b' | 'c';
   featured?: boolean | null;
   featuredOrder?: number | null;
+  /**
+   * Factual/content review, independent of draft/published status. “Verified” alone does not guarantee public readiness.
+   */
   verification?: ('verified' | 'needs-media' | 'needs-copy') | null;
   /**
    * How The Condition retunes the chromatic climate when this work is attended.
    */
   climateHint?: ('earth' | 'sap' | 'clay' | 'moss' | 'acid') | null;
+  /**
+   * Small utilities belong in Lab Items, not the Work collection.
+   */
   tags?: ('authored' | 'systems' | 'interactive' | 'immersive' | 'software' | 'experiments')[] | null;
   lede: string;
   question?: string | null;
@@ -241,6 +249,10 @@ export interface Project {
    * Public project site if any. Never a private/internal hostname.
    */
   externalUrl?: string | null;
+  /**
+   * An explicit editorial decision. Choose Media only when the approved hero below is populated.
+   */
+  heroTreatment?: ('media' | 'typographic') | null;
   hero?: (number | null) | Media;
   gallery?:
     | {
@@ -248,7 +260,54 @@ export interface Project {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Legacy single uploaded video. Existing records remain supported; use “Video media” below for new work.
+   */
   video?: (number | null) | Media;
+  /**
+   * Add a Blob-hosted upload, Vimeo player, or YouTube player. Entries are rendered in this order on the case study.
+   */
+  videos?:
+    | {
+        source: 'upload' | 'vimeo' | 'youtube';
+        /**
+         * Choose an existing video or upload MP4, WebM, MOV, or M4V. New files upload directly to Vercel Blob.
+         */
+        asset?: (number | null) | Media;
+        /**
+         * Paste the public Vimeo or YouTube URL. Player URLs are generated from a strict provider allowlist.
+         */
+        url?: string | null;
+        /**
+         * Names the player for visitors and assistive technology.
+         */
+        title: string;
+        caption?: string | null;
+        /**
+         * Optional image shown before an uploaded video plays. The video asset’s own poster is used as fallback.
+         */
+        poster?: (number | null) | Media;
+        /**
+         * Optional WebVTT tracks for uploaded video. Add every language available in the recording.
+         */
+        tracks?:
+          | {
+              file: number | Media;
+              kind: 'captions' | 'subtitles';
+              language: 'en' | 'fr';
+              /**
+               * For example “English” or “Français”.
+               */
+              label: string;
+              default?: boolean | null;
+              id?: string | null;
+            }[]
+          | null;
+        startAt?: number | null;
+        aspectRatio: '16:9' | '4:3' | '1:1' | '9:16';
+        id?: string | null;
+      }[]
+    | null;
   diagram?: (number | null) | Media;
   meta?: {
     title?: string | null;
@@ -263,7 +322,7 @@ export interface Project {
   _status?: ('draft' | 'published') | null;
 }
 /**
- * Site images and short clips stored on Vercel Blob. Photographer / studio credit is required when the asset is not Saël’s own.
+ * Site images, videos, and WebVTT caption tracks stored on Vercel Blob. Photographer / studio credit is required when the asset is not Saël’s own.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
@@ -291,7 +350,15 @@ export interface Media {
    */
   credit?: string | null;
   creditUrl?: string | null;
-  kind?: ('auto' | 'image' | 'video' | 'diagram') | null;
+  kind?: ('auto' | 'image' | 'video' | 'diagram' | 'captions') | null;
+  /**
+   * Required before project media is publicly ready. Informative assets need localized alt text; decorative assets must use empty alt text.
+   */
+  purpose?: ('informative' | 'decorative') | null;
+  /**
+   * Confirm that this site may publicly display the asset.
+   */
+  rightsConfirmed?: boolean | null;
   poster?: (number | null) | Media;
   /**
    * Stable Vercel Blob key (set by blob-ingest).
@@ -831,6 +898,7 @@ export interface ProjectsSelect<T extends boolean = true> {
         id?: T;
       };
   externalUrl?: T;
+  heroTreatment?: T;
   hero?: T;
   gallery?:
     | T
@@ -839,6 +907,29 @@ export interface ProjectsSelect<T extends boolean = true> {
         id?: T;
       };
   video?: T;
+  videos?:
+    | T
+    | {
+        source?: T;
+        asset?: T;
+        url?: T;
+        title?: T;
+        caption?: T;
+        poster?: T;
+        tracks?:
+          | T
+          | {
+              file?: T;
+              kind?: T;
+              language?: T;
+              label?: T;
+              default?: T;
+              id?: T;
+            };
+        startAt?: T;
+        aspectRatio?: T;
+        id?: T;
+      };
   diagram?: T;
   meta?:
     | T
@@ -894,6 +985,8 @@ export interface MediaSelect<T extends boolean = true> {
   credit?: T;
   creditUrl?: T;
   kind?: T;
+  purpose?: T;
+  rightsConfirmed?: T;
   poster?: T;
   blobPath?: T;
   prefix?: T;

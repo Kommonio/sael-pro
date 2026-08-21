@@ -1,12 +1,22 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import { headers } from 'next/headers'
 import React from 'react'
 
 import { boska, plexMono, satoshi } from '@/app/fonts'
+import { UmlautLayer } from '@/components/UmlautLayer'
 import { ConditionProvider } from '@/condition/ConditionProvider'
 import { SmoothScroll } from '@/condition/SmoothScroll'
+import { defaultLocale, isLocale } from '@/i18n/config'
 import { getServerSideURL } from '@/utilities/getURL'
 
 import './globals.css'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#F1E8D4',
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
@@ -19,15 +29,20 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: 'Saël Simard',
     type: 'website',
-    images: [{ url: '/og.svg', width: 1200, height: 630, alt: 'Saël Simard' }],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Saël Simard' }],
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const requestHeaders = await headers()
+  const requestedLocale = requestHeaders.get('x-locale') || ''
+  const locale = isLocale(requestedLocale) ? requestedLocale : defaultLocale
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${boska.variable} ${satoshi.variable} ${plexMono.variable}`}
+      data-header="paper"
       suppressHydrationWarning
     >
       <head>
@@ -39,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="climate-wash min-h-screen antialiased">
         <ConditionProvider>
           <SmoothScroll />
+          <UmlautLayer />
           {children}
         </ConditionProvider>
       </body>

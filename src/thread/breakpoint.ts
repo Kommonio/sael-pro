@@ -1,0 +1,2 @@
+export const THREAD_ENHANCED_MIN_WIDTH = 1024
+export const THREAD_ENHANCED_MEDIA = `(min-width: ${THREAD_ENHANCED_MIN_WIDTH}px)`

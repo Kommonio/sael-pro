@@ -140,6 +140,7 @@ async function run() {
       authorship: project.authorship,
       tier: project.tier,
       verification: project.verification,
+      heroTreatment: 'heroTreatment' in project ? project.heroTreatment : undefined,
       climateHint: project.climateHint,
       tags: project.tags,
       studio: 'studio' in project ? project.studio : undefined,

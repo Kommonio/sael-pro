@@ -20,6 +20,7 @@ import { Home } from './globals/Home'
 import { Practice } from './globals/Practice'
 import { Site } from './globals/Site'
 import { plugins } from './plugins'
+import { migrations } from './migrations'
 import { getServerSideURL } from './utilities/getURL'
 
 const filename = fileURLToPath(import.meta.url)
@@ -55,6 +56,7 @@ export default buildConfig({
 
     if (isPostgres) {
       return postgresAdapter({
+        prodMigrations: migrations,
         pool: { connectionString: url },
         push:
           process.env.PAYLOAD_DB_PUSH === 'false'

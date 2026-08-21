@@ -1,27 +1,44 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 
+import { killMotion, registerMotion, syncLenis } from '@/lib/motion'
+
 export function SmoothScroll() {
+  const pathname = usePathname()
+
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    let lenis: { destroy: () => void; raf: (time: number) => void } | null = null
-    let raf = 0
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      killMotion()
+      return
+    }
+
+    registerMotion()
+    let unsync: (() => void) | null = null
+    let lenis: { destroy: () => void } | null = null
+
     void import('lenis').then(({ default: Lenis }) => {
-      lenis = new Lenis({
+      const instance = new Lenis({
         duration: 1.05,
         smoothWheel: true,
+        syncTouch: false,
       })
-      const loop = (time: number) => {
-        lenis?.raf(time)
-        raf = requestAnimationFrame(loop)
-      }
-      raf = requestAnimationFrame(loop)
+      lenis = instance
+      unsync = syncLenis(instance)
+      requestAnimationFrame(() => {
+        void import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+          ScrollTrigger.refresh()
+        })
+      })
     })
+
     return () => {
-      cancelAnimationFrame(raf)
+      unsync?.()
       lenis?.destroy()
+      killMotion()
     }
-  }, [])
+  }, [pathname])
+
   return null
 }
