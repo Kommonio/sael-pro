@@ -49,4 +49,18 @@ test.describe('home landing project contract', () => {
     expect(migration).toContain(`WHERE "slug" = 'onmove'`)
     expect(migration).toContain('CREATE UNIQUE INDEX "projects_landing_position_idx"')
   })
+
+  test('mobile orbit variants stay unframed and mobile routes skip the page bridge', () => {
+    const orbit = readFileSync(resolve(process.cwd(), 'src/components/MobileLabOrbit.tsx'), 'utf8')
+    const styles = readFileSync(resolve(process.cwd(), 'src/app/(frontend)/globals.css'), 'utf8')
+    const clock = readFileSync(resolve(process.cwd(), 'src/thread/clock.ts'), 'utf8')
+    const bridge = readFileSync(resolve(process.cwd(), 'src/components/ThreadBridge.tsx'), 'utf8')
+
+    expect(orbit).not.toContain('mobile-home-orbit-thread-tail')
+    expect(styles).toMatch(/\.mobile-home-orbit\s*\{[\s\S]*?border:\s*0;[\s\S]*?border-radius:\s*0;/)
+    expect(styles).toMatch(/\.mobile-home-work-orbit\s*\{[\s\S]*?background:\s*transparent;/)
+    expect(styles).toMatch(/\.mobile-home-lab-orbit\s*\{[\s\S]*?background:\s*[\s\S]*?var\(--night\)\);/)
+    expect(clock).toContain('(max-width: 767.98px), (prefers-reduced-motion: reduce)')
+    expect(bridge).toContain('reducedThreadTravel()')
+  })
 })

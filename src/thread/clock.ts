@@ -5,6 +5,11 @@ export function reducedThread() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
+export function reducedThreadTravel() {
+  if (typeof window === 'undefined') return true
+  return window.matchMedia('(max-width: 767.98px), (prefers-reduced-motion: reduce)').matches
+}
+
 export function leadY(el: HTMLElement) {
   const rect = el.getBoundingClientRect()
   return window.innerHeight * 0.64 - rect.top + 120

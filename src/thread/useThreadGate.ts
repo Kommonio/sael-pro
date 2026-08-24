@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 import { registerThread, threadNav } from '@/thread/camera'
-import { reducedThread } from '@/thread/clock'
+import { reducedThreadTravel } from '@/thread/clock'
 import {
   beginJourney,
   endJourney,
@@ -30,7 +30,7 @@ export function useThreadGate(landRef: { current: HTMLElement | null }) {
       travel: async (id, href) => {
         if (!href) return null
         const fromPoint = point()
-        if (reducedThread()) {
+        if (reducedThreadTravel()) {
           router.push(href)
           return fromPoint
         }

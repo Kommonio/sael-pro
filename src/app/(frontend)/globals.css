@@ -670,6 +670,12 @@ html[data-thread-moving] .site-footer {
   opacity: 0;
 }
 
+@media (max-width: 767.98px) {
+  .thread-bridge {
+    display: none;
+  }
+}
+
 .thread-disc {
   transition:
     width 0.48s cubic-bezier(0.22, 1, 0.36, 1),
@@ -1216,6 +1222,10 @@ html[data-thread-moving] .site-footer {
   }
 
   .mobile-home-orbit {
+    --orbit-ambient: color-mix(in srgb, var(--paper) 4%, transparent);
+    --orbit-node-surface: color-mix(in srgb, var(--night) 78%, transparent);
+    --orbit-thread-ghost: color-mix(in srgb, var(--paper) 13%, transparent);
+    --orbit-thread-live: color-mix(in srgb, var(--ochre) 82%, var(--paper));
     position: relative;
     z-index: 2;
     width: 94%;
@@ -1223,13 +1233,10 @@ html[data-thread-moving] .site-footer {
     min-height: 27rem;
     margin: 4rem auto 0;
     overflow: hidden;
-    border: 1px solid color-mix(in srgb, var(--ochre) 58%, transparent);
-    border-radius: 5.5rem 0.7rem 4rem 0.7rem / 4rem 0.7rem 5rem 0.7rem;
-    background:
-      radial-gradient(72% 58% at 51% 48%, color-mix(in srgb, var(--moss) 34%, transparent), transparent 70%),
-      radial-gradient(48% 38% at 12% 88%, color-mix(in srgb, var(--ochre) 14%, transparent), transparent 76%),
-      var(--night);
-    box-shadow: 0 1.75rem 4.5rem color-mix(in srgb, var(--night) 24%, transparent);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
     color: var(--paper);
     cursor: grab;
     isolation: isolate;
@@ -1242,7 +1249,7 @@ html[data-thread-moving] .site-footer {
     inset: 11% 14%;
     z-index: -1;
     border-radius: 50%;
-    background: color-mix(in srgb, var(--paper) 4%, transparent);
+    background: var(--orbit-ambient);
     filter: blur(2.4rem);
     content: '';
   }
@@ -1268,20 +1275,15 @@ html[data-thread-moving] .site-footer {
   }
 
   .mobile-home-orbit-thread-ghost {
-    stroke: color-mix(in srgb, var(--paper) 13%, transparent);
+    stroke: var(--orbit-thread-ghost);
     stroke-width: 1;
   }
 
   .mobile-home-orbit-thread-live {
-    stroke: color-mix(in srgb, var(--ochre) 82%, var(--paper));
+    stroke: var(--orbit-thread-live);
     stroke-width: 1.2;
     stroke-dasharray: 0.16 0.84;
     animation: mobile-lab-thread-flow 8s linear infinite;
-  }
-
-  .mobile-home-orbit-thread-tail {
-    stroke: color-mix(in srgb, var(--ochre) 44%, transparent);
-    stroke-width: 1;
   }
 
   .mobile-home-orbit-thread circle {
@@ -1358,7 +1360,7 @@ html[data-thread-moving] .site-footer {
     padding: 0.58rem 0.75rem;
     border: 1px solid color-mix(in srgb, var(--paper) 18%, transparent);
     border-radius: 999px;
-    background: color-mix(in srgb, var(--night) 78%, transparent);
+    background: var(--orbit-node-surface);
     box-shadow: 0 0.85rem 2.1rem color-mix(in srgb, var(--night) 38%, transparent);
     color: var(--paper);
     pointer-events: auto;
@@ -1394,16 +1396,13 @@ html[data-thread-moving] .site-footer {
   }
 
   .mobile-home-work-orbit {
+    --orbit-ambient: color-mix(in srgb, var(--clay) 10%, transparent);
+    --orbit-node-surface: color-mix(in srgb, var(--night) 82%, transparent);
     width: 100%;
     height: min(66svh, 35rem);
     min-height: 31rem;
     margin-top: 3rem;
-    border-color: color-mix(in srgb, var(--clay) 42%, var(--ochre));
-    border-radius: 0.7rem 5.5rem 0.7rem 4rem / 0.7rem 4rem 0.7rem 5rem;
-    background:
-      radial-gradient(70% 56% at 49% 47%, color-mix(in srgb, var(--clay) 22%, transparent), transparent 72%),
-      radial-gradient(45% 36% at 88% 12%, color-mix(in srgb, var(--ochre) 12%, transparent), transparent 76%),
-      var(--night);
+    background: transparent;
   }
 
   .mobile-home-work-orbit .mobile-home-orbit-core {
@@ -1419,7 +1418,20 @@ html[data-thread-moving] .site-footer {
 
   .mobile-home-work-orbit-node {
     max-width: min(10.5rem, 43vw);
-    background: color-mix(in srgb, var(--night) 82%, transparent);
+  }
+
+  .mobile-home-lab-orbit {
+    --orbit-ambient: color-mix(in srgb, var(--ochre) 12%, transparent);
+    --orbit-node-surface: color-mix(in srgb, var(--sap) 68%, var(--night));
+    --orbit-thread-ghost: color-mix(in srgb, var(--paper) 16%, transparent);
+    --orbit-thread-live: color-mix(in srgb, var(--acid) 74%, var(--paper));
+    width: calc(100% + 2rem);
+    margin-right: -1rem;
+    margin-left: -1rem;
+    background:
+      radial-gradient(78% 62% at 50% 46%, color-mix(in srgb, var(--moss) 42%, transparent), transparent 72%),
+      radial-gradient(54% 42% at 92% 8%, color-mix(in srgb, var(--ochre) 15%, transparent), transparent 78%),
+      color-mix(in srgb, var(--sap) 82%, var(--night));
   }
 
   @keyframes mobile-lab-thread-flow {

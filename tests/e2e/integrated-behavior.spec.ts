@@ -67,6 +67,7 @@ test('mobile Home keeps the thread subtle and the primary identity layers separa
   await expect(page.locator('.mobile-home-progress')).toBeHidden()
   await expect(page.locator('.mobile-home-opening-thread')).toBeHidden()
   await expect(page.locator('.mobile-home-opening-peek')).toBeHidden()
+  await expect(page.locator('.thread-bridge')).toBeHidden()
 
   const portrait = await page.locator('.mobile-home-portrait').boundingBox()
   const name = await page.locator('.mobile-home-name').boundingBox()
@@ -87,9 +88,14 @@ test('mobile Home presents Lab as a kinetic project field, not an item descripti
   await orbit.scrollIntoViewIfNeeded()
   await expect(orbit).toBeVisible()
   await expect(orbit).toHaveAttribute('data-lab-orbit-ready', 'true')
+  await expect(orbit).toHaveCSS('border-top-width', '0px')
+  await expect(orbit).not.toHaveCSS('background-image', 'none')
+  await expect(orbit.locator('.mobile-home-orbit-thread-tail')).toHaveCount(0)
   await expect(orbit.getByRole('link', { name: 'Lab projects', exact: true })).toHaveText('LAB')
   expect(await orbit.locator('.mobile-home-lab-node').count()).toBeGreaterThan(0)
-  await expect(page.getByText(/utility for swapping Spotify and YouTube Music libraries/i)).toHaveCount(0)
+  await expect(
+    page.locator('.mobile-home-journey').getByText(/utility for swapping Spotify and YouTube Music libraries/i),
+  ).toHaveCount(0)
 })
 
 test('mobile Home gives two projects full attention before opening the All Works field', async ({ page }) => {
@@ -107,6 +113,9 @@ test('mobile Home gives two projects full attention before opening the All Works
   const allWorks = page.locator('.mobile-home-work-orbit')
   await allWorks.scrollIntoViewIfNeeded()
   await expect(allWorks).toHaveAttribute('data-work-orbit-ready', 'true')
+  await expect(allWorks).toHaveCSS('border-top-width', '0px')
+  await expect(allWorks).toHaveCSS('background-image', 'none')
+  await expect(allWorks.locator('.mobile-home-orbit-thread-tail')).toHaveCount(0)
   await expect(allWorks.getByRole('link', { name: 'All works', exact: true })).toHaveText('ALL WORKS')
   expect(await allWorks.locator('.mobile-home-work-orbit-node').count()).toBeGreaterThan(0)
   await expect(allWorks.locator('.mobile-home-work-orbit-node', { hasText: 'Azul Vivo' })).toHaveCount(0)

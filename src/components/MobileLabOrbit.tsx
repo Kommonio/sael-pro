@@ -206,7 +206,6 @@ function MobileOrbitField({
       <svg className="mobile-home-orbit-thread" viewBox="0 0 360 440" preserveAspectRatio="none" aria-hidden="true">
         <path className="mobile-home-orbit-thread-ghost" d="M43 231 C17 105 130 40 245 73 C348 103 373 254 285 344 C202 427 52 368 43 231 Z" />
         <path className="mobile-home-orbit-thread-live" d="M43 231 C17 105 130 40 245 73 C348 103 373 254 285 344 C202 427 52 368 43 231 Z" pathLength="1" />
-        <path className="mobile-home-orbit-thread-tail" d="M180 217 C132 238 143 292 89 321 C56 339 42 371 51 440" />
         <circle cx="177" cy="215" r="3.5" />
         <circle cx="188" cy="215" r="3.5" />
       </svg>

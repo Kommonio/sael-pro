@@ -7,7 +7,7 @@ import { ThreadNode } from '@/components/ThreadNode'
 import { gsap } from '@/lib/motion'
 import { registerThread, threadNav } from '@/thread/camera'
 import { THREAD_ENHANCED_MEDIA } from '@/thread/breakpoint'
-import { focusY, leadY, reducedThread, trackAtStart } from '@/thread/clock'
+import { focusY, leadY, reducedThread, reducedThreadTravel, trackAtStart } from '@/thread/clock'
 import { drawDot, drawHead, drawPair, drawStroke, resizeCanvas } from '@/thread/draw'
 import type { CompiledGraph, PlacedNode } from '@/thread/graph'
 import { scaleGraph } from '@/thread/graph'
@@ -409,7 +409,7 @@ export function ThreadCanvas({
           item && host
             ? viewportPoint(host, item.x, item.y)
             : { x: window.innerWidth * 0.5, y: window.innerHeight * 0.42 }
-        if (reducedThread()) {
+        if (reducedThreadTravel()) {
           router.push(go)
           return fromPoint
         }

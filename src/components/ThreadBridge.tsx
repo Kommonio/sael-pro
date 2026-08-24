@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 
 import { gsap } from '@/lib/motion'
 import { registerBridge } from '@/thread/camera'
-import { reducedThread } from '@/thread/clock'
+import { reducedThreadTravel } from '@/thread/clock'
 import { drawHead, drawStroke, resizeCanvas } from '@/thread/draw'
 import { arrivePath, departPath } from '@/thread/journey'
 import type { Vec } from '@/thread/math'
@@ -75,7 +75,7 @@ export function ThreadBridge() {
     registerBridge({
       depart: async (journey, go) => {
         node.classList.remove('is-idle')
-        if (reducedThread()) {
+        if (reducedThreadTravel()) {
           go()
           return
         }
@@ -96,7 +96,7 @@ export function ThreadBridge() {
       arrive: async (land, journey) => {
         await departLock
         node.classList.remove('is-idle')
-        if (reducedThread()) {
+        if (reducedThreadTravel()) {
           if (ctx) ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
           node.classList.add('is-idle')
           return
