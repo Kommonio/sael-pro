@@ -4,6 +4,14 @@ import { measureHorizontalOverflow, openApp } from './support/app'
 
 const overflowMatrix = [
   ...[320, 390, 768, 1023, 1024, 1025, 1440].map((width) => ({ path: '/en', width })),
+  ...[320, 390].flatMap((width) => [
+    { path: '/en/work', width },
+    { path: '/en/about', width },
+    { path: '/en/practice', width },
+    { path: '/en/lab', width },
+    { path: '/en/contact', width },
+    { path: '/en/work/azul-vivo', width },
+  ]),
   ...[1023, 1024, 1025].map((width) => ({ path: '/en/work', width })),
   { path: '/fr/contact', width: 320 },
   { path: '/fr/contact', width: 390 },
@@ -13,7 +21,13 @@ for (const { path, width } of overflowMatrix) {
   test(`${path} has no document-level horizontal overflow at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 })
     await openApp(page, path)
-    await page.locator('.thread-node').first().waitFor({ state: 'visible', timeout: 10_000 }).catch(() => undefined)
+    await page
+      .locator(
+        '.thread-node:visible, .mobile-home-journey:visible, .mobile-work-index:visible, .mobile-lab-index:visible, .mobile-contact-opening:visible, .content-page:visible, .case-hero:visible',
+      )
+      .first()
+      .waitFor({ state: 'visible', timeout: 10_000 })
+      .catch(() => undefined)
 
     const measurement = await measureHorizontalOverflow(page)
     expect(
@@ -59,8 +73,37 @@ test('mobile menu Escape behavior restores focus and scroll state', async ({ pag
   await expect(page.locator('body')).not.toHaveCSS('overflow', 'hidden')
 })
 
-for (const width of [320, 390, 768, 1023] as const) {
-  test(`thread keeps a non-overlapping spatial composition at ${width}px`, async ({ page }) => {
+for (const width of [320, 390] as const) {
+  test(`home uses the authored mobile journey at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 })
+    await openApp(page, '/en')
+
+    const journey = page.locator('.mobile-home-journey')
+    await expect(journey).toBeVisible()
+    await expect(page.locator('.home-thread-canvas')).toBeHidden()
+    await expect(journey.getByText('Saël', { exact: true })).toBeVisible()
+    await expect(journey.getByText('Selected work', { exact: true }).first()).toBeVisible()
+    await expect(page.locator('.mobile-command-bar')).toBeVisible()
+
+    const projects = journey.locator('.mobile-home-project-link')
+    expect(await projects.count()).toBeGreaterThanOrEqual(2)
+    const geometry = await projects.evaluateAll((links) =>
+      links.map((link) => {
+        const rect = link.getBoundingClientRect()
+        return { left: rect.left, right: rect.right, width: rect.width, height: rect.height }
+      }),
+    )
+    geometry.forEach((item) => {
+      expect(item.left).toBeGreaterThanOrEqual(-1)
+      expect(item.right).toBeLessThanOrEqual(width + 1)
+      expect(item.width).toBeGreaterThan(width * 0.9)
+      expect(item.height).toBeGreaterThan(440)
+    })
+  })
+}
+
+for (const width of [768, 1023] as const) {
+  test(`compact thread keeps a non-overlapping spatial composition at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 })
     await openApp(page, '/en')
     const nodes = page.locator('.thread-node')
@@ -137,7 +180,7 @@ for (const width of [1024, 1025] as const) {
 test('focusable elements are not hidden with opacity', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 780 })
   await openApp(page, '/en/work')
-  await page.locator('.thread-node').first().waitFor({ state: 'visible' })
+  await page.locator('.mobile-work-card').first().waitFor({ state: 'visible' })
 
   const hiddenFocusStops = await page.locator('a[href], button, input, textarea, select, [tabindex]').evaluateAll((items) =>
     items.flatMap((item) => {

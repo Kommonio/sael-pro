@@ -1,7 +1,7 @@
 # sael.pro UX/UI Remediation Work Plan
 
 **Date:** 2026-08-20  
-**Status:** Proposed — ready for execution  
+**Status:** In execution — mobile experience redesign implemented locally; visual device review pending
 **Scope:** Public English and French portfolio routes  
 **Target:** A stable, accessible, media-led release candidate that preserves the thread concept without making it the only usable interface
 
@@ -923,3 +923,58 @@ These should not delay release unless product scope changes:
 - animation polish that does not communicate structure or state.
 
 The release should first prove that the portfolio is clear, credible, navigable, responsive, and complete.
+
+## 19. Mobile experience redesign addendum — 2026-08-23
+
+### 19.1 Decision
+
+The earlier narrow-screen direction—“safe linear/card experience”—solved overlap but reduced the thread concept to a vertical list. That is no longer the target for phones. Below 768px, Home and Work now have independent authored compositions that share content and destinations with larger layouts without copying the desktop canvas geometry.
+
+The mobile product principles are:
+
+1. **Identity, proof, depth.** The opening glance establishes Saël, the role, and the thesis; project evidence follows immediately; Practice, Lab, About, and Contact become deeper paths.
+2. **Natural scroll is the primary gesture.** No essential content depends on swiping, dragging, long press, or motion support.
+3. **The thread orients rather than decorates.** It appears as progress, chapter continuity, and surface transitions instead of connecting a stack of thumbnails.
+4. **The lower thumb zone owns decisions.** Work and Menu remain in a fixed command bar through 1023px. Project and contact actions sit low in their chambers and retain large targets.
+5. **Motion creates anticipation.** Sticky chambers, next-content peeks, changing crops, and scroll-linked breathing reveal depth. They do not map every finger movement to an arbitrary visual response.
+6. **Stillness is complete.** Reduced-motion users receive the same content, hierarchy, destinations, and surface changes without scroll-linked transforms.
+7. **Contrast follows the surface.** Header, locale, Menu, and command bar automatically switch between paper and night treatments as the underlying chapter changes.
+
+### 19.2 Implemented route model
+
+| Route | Phone treatment | Tablet / desktop treatment |
+|---|---|---|
+| Home | Identity chamber, three immersive project chambers, Practice/Lab depth field, conversion close | Existing thread composition from 768px; enhanced canvas from 1024px |
+| Work | Large editorial opening, persistent filter capsules, asymmetrical media field | Compact thread through 1023px; enhanced canvas from 1024px |
+| Lab | Media-led opening and asymmetric experiment plates | Existing Lab thread |
+| Contact | Correspondence opening, dark high-focus message field | Existing Contact thread and form |
+| About / Practice | Media-led editorial landing, threaded sections, tactile principle plates | Existing long-form editorial layout |
+| Case studies | Existing chapter narrative with corrected mobile rail containment and command-bar clearance | Existing chapter rail and media/system layouts |
+
+### 19.3 Interaction and engineering constraints
+
+- Phone-specific compositions are CSS-hidden at wider widths; source destinations remain native anchors.
+- `IntersectionObserver` changes only chapter/surface state. There is no per-scroll React render loop.
+- Scroll-linked image and aperture motion uses progressive CSS support and is removed under `prefers-reduced-motion`.
+- Mobile media uses responsive `sizes`; approved CMS/blob media and existing real project archive imagery remain authoritative.
+- The 768–1023 range keeps the thumb command bar so it never falls into a navigation dead zone before desktop navigation appears.
+- The mobile menu is a bounded bottom sheet with focus containment, Escape restoration, inert background content, and safe-area clearance.
+
+### 19.4 Verification evidence
+
+Completed locally on 2026-08-23:
+
+- TypeScript: pass (`npx tsc --noEmit`).
+- Touched-source ESLint: pass.
+- Production build and sitemap generation: pass; sandbox-only Postgres connection warnings fall back without failing the build.
+- 57-test geometry/integration/SSR run: 56 passed initially; the sole 768px navigation-gap regression was corrected and its focused retest passes.
+- Accessibility and Contact suite: 12/12 passed, including applicable WCAG A/AA axe rules, reduced motion, localized success/error/network states, and duplicate-submit prevention.
+- Expanded phone overflow matrix covers Home, Work, About, Practice, Lab, Contact, and a media-rich case at 320px and 390px.
+- Automatic paper/night control switching is asserted on Work and case studies.
+
+### 19.5 Remaining release review
+
+- Perform the visual device pass in iOS Safari and Android Chrome once the preview browser can access the local or deployed build.
+- Review crop focal points for every selected project at 320×700, 390×844, and short landscape heights.
+- Confirm the first three mobile Home projects and their ordering with the portfolio owner/CMS featured order.
+- Capture EN/FR before/after baselines after visual approval; do not treat the previous vertical-node baseline as the desired state.

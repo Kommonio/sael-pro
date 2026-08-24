@@ -80,22 +80,24 @@ export function CaseStudyRail({ label, items }: { label: string; items: CaseStud
   }, [itemIds])
 
   return (
-    <nav className="case-rail" aria-label={label}>
-      <ol>
-        {items.map((item) => {
-          const active = item.id === activeId
-          return (
-            <li key={item.id}>
-              <a href={`#${item.id}`} aria-current={active ? 'location' : undefined}>
-                <span className="case-rail-dot" aria-hidden="true" />
-                <span className="case-rail-index">{item.index}</span>
-                <span className="case-rail-label">{item.label}</span>
-              </a>
-            </li>
-          )
-        })}
-      </ol>
-    </nav>
+    <div className="case-rail-shell">
+      <nav className="case-rail" aria-label={label}>
+        <ol>
+          {items.map((item) => {
+            const active = item.id === activeId
+            return (
+              <li key={item.id}>
+                <a href={`#${item.id}`} aria-current={active ? 'location' : undefined}>
+                  <span className="case-rail-dot" aria-hidden="true" />
+                  <span className="case-rail-index">{item.index}</span>
+                  <span className="case-rail-label">{item.label}</span>
+                </a>
+              </li>
+            )
+          })}
+        </ol>
+      </nav>
+    </div>
   )
 }
 

@@ -42,7 +42,7 @@ export function SiteHeader({
 
     const previousOverflow = document.body.style.overflow
     const pageRegions = Array.from(document.querySelectorAll<HTMLElement>('main, .site-footer'))
-    const desktop = window.matchMedia('(min-width: 768px)')
+    const desktop = window.matchMedia('(min-width: 1024px)')
     const focusable = () => [
       menuButton.current,
       ...Array.from(mobileNav.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') || []),
@@ -131,39 +131,58 @@ export function SiteHeader({
           </nav>
           <div className="header-locale flex items-center gap-3">
             <LocaleSwitcher locale={locale} />
-            <button
-              ref={menuButton}
-              type="button"
-              className="header-chip min-h-11 border border-current/25 px-3 py-2 type-meta md:hidden"
-              aria-expanded={open}
-              aria-controls="mobile-nav"
-              onClick={() => setOpen((value) => !value)}
-            >
-              {open ? (locale === 'fr' ? 'Fermer' : 'Close') : 'Menu'}
-            </button>
           </div>
+        </div>
+        <div className="mobile-command-bar md:hidden">
+          <ThreadLink
+            href={`/${locale}/work`}
+            className="mobile-command-work no-underline type-meta"
+            id="work"
+            aria-current={pathname.startsWith(`/${locale}/work`) ? 'page' : undefined}
+          >
+            {labels.work}
+          </ThreadLink>
+          <span className="mobile-command-thread" aria-hidden="true">
+            <span />
+          </span>
+          <button
+            ref={menuButton}
+            type="button"
+            className="header-chip mobile-command-menu min-h-11 type-meta"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? (locale === 'fr' ? 'Fermer' : 'Close') : 'Menu'}
+          </button>
         </div>
       </header>
       {open ? (
         <nav
           ref={mobileNav}
           id="mobile-nav"
-          className="fixed inset-x-0 bottom-0 top-[calc(3.75rem+env(safe-area-inset-top))] z-50 overflow-auto border-t border-ink/10 bg-paper text-ink md:hidden"
+          className="mobile-nav-panel fixed inset-x-0 bottom-0 z-50 overflow-auto bg-paper text-ink md:hidden"
           aria-label={locale === 'fr' ? 'Navigation principale mobile' : 'Primary mobile'}
         >
-          <div className="site-shell flex flex-col gap-1 py-8 pb-[max(2rem,env(safe-area-inset-bottom))]">
-            {links.map((item) => {
+          <div className="mobile-nav-register site-shell">
+            <p className="type-meta">{locale === 'fr' ? 'Index' : 'Index'}</p>
+            <p>{locale === 'fr' ? 'Choisir une direction' : 'Choose a direction'}</p>
+          </div>
+          <div className="site-shell flex flex-col">
+            {links.map((item, index) => {
               const href = `/${locale}${item.href}`
               const current = pathname === href || pathname.startsWith(`${href}/`)
               return (
                 <ThreadLink
                   key={item.href}
                   href={href}
-                  className="min-h-14 border-b border-ink/10 py-4 font-display text-4xl no-underline"
+                  className="mobile-nav-link min-h-14 no-underline"
                   id={item.href.replace('/', '')}
                   aria-current={current ? 'page' : undefined}
                 >
-                  <span onClick={() => setOpen(false)}>{item.label}</span>
+                  <span className="type-meta" aria-hidden="true">0{index + 1}</span>
+                  <span className="font-display" onClick={() => setOpen(false)}>{item.label}</span>
+                  <span aria-hidden="true">↗</span>
                 </ThreadLink>
               )
             })}

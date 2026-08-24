@@ -42,9 +42,11 @@ export async function measureHorizontalOverflow(page: Page) {
           left: Math.round(rect.left),
           right: Math.round(rect.right),
           width: Math.round(rect.width),
+          overflow: Math.max(0, -rect.left, rect.right - viewportWidth),
         }
       })
       .filter((item) => item.width > 0 && (item.left < -1 || item.right > viewportWidth + 1))
+      .sort((a, b) => b.overflow - a.overflow)
       .slice(0, 12)
 
     return { viewportWidth, documentWidth, offenders }
