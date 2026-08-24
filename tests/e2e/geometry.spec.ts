@@ -11,6 +11,7 @@ const overflowMatrix = [
     { path: '/en/lab', width },
     { path: '/en/contact', width },
     { path: '/en/work/azul-vivo', width },
+    { path: '/en/work/onmove', width },
   ]),
   ...[1023, 1024, 1025].map((width) => ({ path: '/en/work', width })),
   { path: '/fr/contact', width: 320 },

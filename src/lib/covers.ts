@@ -18,9 +18,9 @@ const COVERS: Record<string, Cover> = {
     alt: 'The Man Who Planted Trees immersive exhibition',
   },
   onmove: {
-    src: `${CMS_BLOB}/onmove-product-interface-958f02b2-1.png`,
-    credit: 'OnMove — live product interface, captured 2026-08-21',
-    alt: 'The live OnMove product homepage presenting location-based audio and visual storytelling',
+    src: `${CMS_BLOB}/onmove-location-story-d47921a7.webp`,
+    credit: 'Saël Simard — AI-assisted visualization grounded in OnMove’s location-aware listening model',
+    alt: 'A listener walks through a Montréal street while experiencing a location-aware OnMove story',
   },
   'viventi-mori': {
     src: `${CMS_BLOB}/viventi-mori-projection-d1e13e01.png`,
@@ -46,6 +46,12 @@ const VIVENTI_INSTALLATION: Cover = {
   alt: 'The Viventi Mori projection-mapped skull installed inside its portable wooden case',
 }
 
+const ONMOVE_INTERFACE: Cover = {
+  src: `${CMS_BLOB}/onmove-product-interface-958f02b2-1.png`,
+  credit: 'OnMove — live product interface, captured 2026-08-21',
+  alt: 'The live OnMove product homepage presenting location-based audio and visual storytelling',
+}
+
 export const GALLERY: Record<string, Cover[]> = {
   'azul-vivo': [
     COVERS['azul-vivo'],
@@ -53,7 +59,7 @@ export const GALLERY: Record<string, Cover[]> = {
     { src: '/stills/azul-vivo-3.jpg', credit: 'Saël Simard — Presence', alt: 'Shark encounter from Presence' },
     { src: '/stills/azul-vivo-4.jpg', credit: 'Saël Simard — Presence', alt: 'Open water from Presence' },
   ],
-  onmove: [COVERS.onmove, COVERS.onmove],
+  onmove: [COVERS.onmove, ONMOVE_INTERFACE],
   'viventi-mori': [COVERS['viventi-mori'], VIVENTI_INSTALLATION],
   versus: [COVERS.versus, COVERS.versus, VERSUS_PLAN],
 }
@@ -62,6 +68,18 @@ export const PORTRAIT: Cover = {
   src: '/stills/sael-portrait.jpg',
   credit: 'Supply + Demand',
   alt: 'Saël Simard',
+}
+
+export const ABOUT_STILL: Cover = {
+  src: `${CMS_BLOB}/about-systems-practice-5f001df0.webp`,
+  credit: 'Saël Simard — AI-assisted editorial visualization of the multidisciplinary practice',
+  alt: 'A systems-design worktable connecting a hand-drawn topology, signal hardware, fabrication and image-making',
+}
+
+export const CONTACT_STILL: Cover = {
+  src: `${CMS_BLOB}/contact-studio-threshold-811f77ca.webp`,
+  credit: 'Saël Simard — AI-assisted editorial visualization of a Montréal studio threshold',
+  alt: 'An available chair at a Montréal studio worktable between cool window light and a warm workshop',
 }
 
 export const SECTION: Record<'practice' | 'lab', Cover> = {
@@ -80,4 +98,8 @@ export const SECTION: Record<'practice' | 'lab', Cover> = {
 export function coverFor(slug?: string | null): Cover | null {
   if (!slug) return null
   return COVERS[slug] || null
+}
+
+export function shouldPreferCover(slug?: string | null) {
+  return slug === 'onmove'
 }

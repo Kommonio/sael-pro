@@ -413,14 +413,14 @@ html[data-header='over-night'] .site-header .header-locale .header-chip {
     z-index: 55;
     display: grid;
     grid-template-columns: auto minmax(2.25rem, 1fr) auto;
-    height: 3.75rem;
+    height: 3.4rem;
     align-items: center;
-    gap: 0.8rem;
-    padding: 0.35rem 0.4rem 0.35rem 1.15rem;
+    gap: 0.7rem;
+    padding: 0.25rem 0.3rem 0.25rem 1rem;
     border: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
     border-radius: 999px;
     background: color-mix(in srgb, var(--paper) 82%, transparent);
-    box-shadow: 0 1rem 3rem color-mix(in srgb, var(--night) 18%, transparent);
+    box-shadow: 0 0.75rem 2.25rem color-mix(in srgb, var(--night) 14%, transparent);
     color: var(--ink);
     backdrop-filter: blur(20px) saturate(1.25);
     transition:
@@ -465,8 +465,8 @@ html[data-header='over-night'] .site-header .header-locale .header-chip {
   .mobile-command-menu {
     border: 0;
     border-radius: 999px;
-    padding-inline: 1rem;
-    background: color-mix(in srgb, var(--ink) 8%, transparent);
+    padding-inline: 0.85rem;
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
   }
 
   html[data-header='over-night'] .mobile-command-bar,
@@ -685,7 +685,7 @@ html[data-thread-moving] .site-footer {
     top: 29svh;
     right: 0.45rem;
     z-index: 42;
-    display: grid;
+    display: none;
     justify-items: center;
     gap: 0.35rem;
     padding: 0.45rem 0.22rem;
@@ -738,7 +738,7 @@ html[data-thread-moving] .site-footer {
 
   .mobile-home-opening {
     position: relative;
-    height: 138svh;
+    height: 122svh;
     view-timeline-name: --mobile-opening;
     view-timeline-axis: block;
   }
@@ -747,7 +747,7 @@ html[data-thread-moving] .site-footer {
     position: sticky;
     top: 0;
     display: grid;
-    grid-template-rows: minmax(15rem, 43svh) minmax(0, 1fr);
+    grid-template-rows: minmax(15rem, 45svh) auto;
     height: 100svh;
     overflow: hidden;
     padding:
@@ -763,7 +763,7 @@ html[data-thread-moving] .site-footer {
   .mobile-home-portrait {
     position: relative;
     align-self: stretch;
-    width: 82%;
+    width: 78%;
     margin-left: auto;
     overflow: hidden;
     border-radius: 48% 0.65rem 48% 48% / 42% 0.65rem 55% 48%;
@@ -782,6 +782,7 @@ html[data-thread-moving] .site-footer {
   }
 
   .mobile-home-opening-thread {
+    display: none;
     position: absolute;
     inset: 0;
     z-index: 2;
@@ -804,8 +805,8 @@ html[data-thread-moving] .site-footer {
   .mobile-home-opening-copy {
     position: relative;
     z-index: 3;
-    align-self: end;
-    padding-top: 1.05rem;
+    align-self: start;
+    padding-top: 0.9rem;
   }
 
   .mobile-home-role {
@@ -815,16 +816,16 @@ html[data-thread-moving] .site-footer {
   }
 
   .mobile-home-name {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.55rem;
-    font-size: clamp(4.1rem, 20.5vw, 6.25rem);
-    line-height: 0.78;
-    letter-spacing: -0.055em;
+    display: block;
+    margin-top: 0.45rem;
+    font-size: clamp(3.6rem, 16vw, 5rem);
+    line-height: 0.9;
+    letter-spacing: -0.045em;
   }
 
   .mobile-home-name > span:last-child {
-    padding-top: 0.74em;
+    margin-left: 0.14em;
+    padding-top: 0;
   }
 
   .mobile-home-thesis {
@@ -856,7 +857,7 @@ html[data-thread-moving] .site-footer {
     right: var(--mobile-home-gutter);
     bottom: max(0.7rem, env(safe-area-inset-bottom));
     left: var(--mobile-home-gutter);
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: space-between;
     padding: 0.75rem 1rem;
@@ -874,7 +875,7 @@ html[data-thread-moving] .site-footer {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 3.2rem 1.15rem 1.2rem;
+    padding: 2rem 1.15rem 1rem;
     background: var(--night);
     color: color-mix(in srgb, var(--paper) 76%, transparent);
   }
@@ -951,13 +952,15 @@ html[data-thread-moving] .site-footer {
   .mobile-home-project-register {
     position: absolute;
     top: 1.35rem;
-    right: 1.25rem;
     left: 1.25rem;
     z-index: 2;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     color: color-mix(in srgb, var(--paper) 74%, transparent);
+  }
+
+  .mobile-home-project-register > span:last-child {
+    display: none;
   }
 
   .mobile-home-project-copy {
@@ -976,11 +979,11 @@ html[data-thread-moving] .site-footer {
 
   .mobile-home-project-copy > strong {
     display: block;
-    max-width: 8.5ch;
+    max-width: 10ch;
     margin-top: 0.45rem;
-    font-size: clamp(3.4rem, 15.6vw, 5.6rem);
+    font-size: clamp(3.15rem, 13.2vw, 4.9rem);
     font-weight: 500;
-    line-height: 0.82;
+    line-height: 0.88;
     letter-spacing: -0.045em;
     text-wrap: balance;
   }
@@ -994,7 +997,7 @@ html[data-thread-moving] .site-footer {
     line-height: 1.42;
     color: color-mix(in srgb, var(--paper) 80%, transparent);
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
   }
 
   .mobile-home-project-enter {
@@ -1013,6 +1016,7 @@ html[data-thread-moving] .site-footer {
   }
 
   .mobile-home-project-thread {
+    display: none;
     position: absolute;
     top: 0;
     right: 7%;
@@ -1055,7 +1059,7 @@ html[data-thread-moving] .site-footer {
     inset: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.65;
+    opacity: 0.3;
     pointer-events: none;
   }
 

@@ -133,30 +133,30 @@ export function SiteHeader({
             <LocaleSwitcher locale={locale} />
           </div>
         </div>
-        <div className="mobile-command-bar md:hidden">
-          <ThreadLink
-            href={`/${locale}/work`}
-            className="mobile-command-work no-underline type-meta"
-            id="work"
-            aria-current={pathname.startsWith(`/${locale}/work`) ? 'page' : undefined}
-          >
-            {labels.work}
-          </ThreadLink>
-          <span className="mobile-command-thread" aria-hidden="true">
-            <span />
-          </span>
-          <button
-            ref={menuButton}
-            type="button"
-            className="header-chip mobile-command-menu min-h-11 type-meta"
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            onClick={() => setOpen((value) => !value)}
-          >
-            {open ? (locale === 'fr' ? 'Fermer' : 'Close') : 'Menu'}
-          </button>
-        </div>
       </header>
+      <div className="mobile-command-bar md:hidden">
+        <ThreadLink
+          href={`/${locale}/work`}
+          className="mobile-command-work no-underline type-meta"
+          id="work"
+          aria-current={pathname.startsWith(`/${locale}/work`) ? 'page' : undefined}
+        >
+          {labels.work}
+        </ThreadLink>
+        <span className="mobile-command-thread" aria-hidden="true">
+          <span />
+        </span>
+        <button
+          ref={menuButton}
+          type="button"
+          className="header-chip mobile-command-menu min-h-11 type-meta"
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+          onClick={() => setOpen((value) => !value)}
+        >
+          {open ? (locale === 'fr' ? 'Fermer' : 'Close') : 'Menu'}
+        </button>
+      </div>
       {open ? (
         <nav
           ref={mobileNav}

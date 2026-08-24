@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { ContentEssay, EssayBody, EssaySection } from '@/components/ContentEssay'
 import { isLocale, type Locale } from '@/i18n/config'
 import { catalogAbout } from '@/lib/catalog'
-import { PORTRAIT } from '@/lib/covers'
+import { ABOUT_STILL } from '@/lib/covers'
 import { getGlobal } from '@/lib/payload'
 import { lexicalText } from '@/lib/richText'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -47,7 +47,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   return (
     <ContentEssay
-      still={PORTRAIT}
+      still={ABOUT_STILL}
       meta={fr ? 'À propos' : 'About'}
       title={about.title || fallback.title}
       lede={about.currentRole || fallback.currentRole}

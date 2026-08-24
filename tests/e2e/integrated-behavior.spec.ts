@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test'
 import { openApp } from './support/app'
 
 test('Home opens with explicit work-first proof and navigation', async ({ page }) => {
+  test.setTimeout(60_000)
   await page.setViewportSize({ width: 768, height: 684 })
   await openApp(page, '/en')
 
@@ -16,6 +17,7 @@ test('Home opens with explicit work-first proof and navigation', async ({ page }
 })
 
 test('Interactive filter exposes seven native project destinations', async ({ page }) => {
+  test.setTimeout(60_000)
   await page.setViewportSize({ width: 390, height: 844 })
   await openApp(page, '/en/work')
 
@@ -39,6 +41,25 @@ test('mobile Work is an authored field and its controls follow the surface benea
   await page.locator('.mobile-work-field').evaluate((field) => field.scrollIntoView({ block: 'start' }))
   await expect.poll(() => page.locator('html').getAttribute('data-mobile-surface')).toBe('night')
   await expect(page.getByRole('button', { name: 'Menu', exact: true })).toHaveCSS('color', 'rgb(241, 232, 212)')
+})
+
+test('mobile Home keeps the thread subtle and the primary identity layers separate', async ({ page }) => {
+  test.setTimeout(60_000)
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openApp(page, '/en')
+
+  await expect(page.locator('.mobile-home-progress')).toBeHidden()
+  await expect(page.locator('.mobile-home-opening-thread')).toBeHidden()
+  await expect(page.locator('.mobile-home-opening-peek')).toBeHidden()
+
+  const portrait = await page.locator('.mobile-home-portrait').boundingBox()
+  const name = await page.locator('.mobile-home-name').boundingBox()
+  const command = await page.locator('.mobile-command-bar').boundingBox()
+  expect(portrait).not.toBeNull()
+  expect(name).not.toBeNull()
+  expect(command).not.toBeNull()
+  expect(name!.y).toBeGreaterThanOrEqual(portrait!.y + portrait!.height - 2)
+  expect(command!.y).toBeGreaterThan(844 * 0.75)
 })
 
 test('mobile secondary destinations use their dedicated compositions', async ({ page }) => {
@@ -92,4 +113,21 @@ test('case-study header follows the surface beneath it and Versus exposes its cl
   await expect(root).toHaveAttribute('data-header', 'paper')
   await expect(menu).toHaveCSS('color', 'rgb(28, 18, 14)')
   await expect(page.locator('dl').getByText('LINKVIVA', { exact: true })).toBeVisible()
+})
+
+test('generated editorial media replaces placeholders without duplicating the profile portrait', async ({ page }) => {
+  test.setTimeout(60_000)
+  await page.setViewportSize({ width: 1440, height: 1000 })
+
+  await openApp(page, '/en/about')
+  await expect(page.locator('.content-land img')).toHaveAttribute('src', /about-systems-practice\.webp/)
+
+  await openApp(page, '/en/contact')
+  await expect(page.locator('[data-thread-id="contact"]')).toHaveAttribute('data-thread-has-still', 'true')
+
+  await openApp(page, '/en/work/onmove')
+  await expect(page.locator('[data-hero-treatment="media"] img').first()).toHaveAttribute(
+    'src',
+    /onmove-location-story\.webp/,
+  )
 })

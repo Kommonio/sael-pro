@@ -1,7 +1,7 @@
 import type { ProjectCardData } from '@/components/ProjectCard'
 import { matchesFilter } from '@/components/score/shared'
 import type { Locale } from '@/i18n/config'
-import { coverFor, PORTRAIT, SECTION } from '@/lib/covers'
+import { ABOUT_STILL, CONTACT_STILL, coverFor, PORTRAIT, SECTION } from '@/lib/covers'
 import { sortByRecency } from '@/lib/catalog'
 import { t } from '@/lib/copy'
 import { mediaUrl } from '@/lib/media'
@@ -116,8 +116,8 @@ export function homeGraph(
       ? 'Architecte de systèmes chez Supply + Demand. Pratique indépendante via Kommon.io depuis 2017.'
       : 'System Architect at Supply + Demand. Independent practice as Kommon.io since 2017.',
     href: `/${locale}/about`,
-    still: PORTRAIT.src,
-    credit: PORTRAIT.credit,
+    still: ABOUT_STILL.src,
+    credit: ABOUT_STILL.credit,
     enter,
     weight: 'spine',
   })
@@ -127,8 +127,10 @@ export function homeGraph(
     meta: fr ? 'Correspondance' : 'Correspondence',
     detail: fr ? 'Un message direct, sans détour.' : 'A direct message, without ceremony.',
     href: `/${locale}/contact`,
+    still: CONTACT_STILL.src,
+    credit: CONTACT_STILL.credit,
     enter,
-    kind: 'ring',
+    kind: 'disc',
     weight: 'hairline',
   })
   return line.compile()
@@ -215,6 +217,8 @@ export function contactGraph(locale: Locale, title: string): CompiledGraph {
       id: 'contact',
       label: title,
       meta: locale === 'fr' ? 'Correspondance' : 'Correspondence',
+      still: CONTACT_STILL.src,
+      credit: CONTACT_STILL.credit,
       href: 'mailto:hello@sael.pro',
       weight: 'spine',
     })

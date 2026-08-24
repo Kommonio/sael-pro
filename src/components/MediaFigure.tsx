@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 
-import { coverFor } from '@/lib/covers'
+import { coverFor, shouldPreferCover } from '@/lib/covers'
 import { focalPoint, mediaUrl, type MediaDoc } from '@/lib/media'
 import { cn } from '@/utilities/cn'
 
@@ -43,10 +43,17 @@ export function MediaFigure({
   const cmsSrc =
     mediaUrl(typeof media === 'object' ? media : null, 'xlarge') ||
     mediaUrl(typeof media === 'object' ? media : null)
-  const src = srcProp || cmsSrc || fallback?.src || null
-  const resolvedAlt = alt || (typeof media === 'object' ? media?.alt : '') || fallback?.alt || title || ''
+  const preferFallback = Boolean(fallback && shouldPreferCover(slug))
+  const src = srcProp || (preferFallback ? fallback?.src : cmsSrc || fallback?.src) || null
+  const resolvedAlt =
+    alt ||
+    (preferFallback ? fallback?.alt : (typeof media === 'object' ? media?.alt : '') || fallback?.alt) ||
+    title ||
+    ''
   const resolvedCredit =
-    credit || (typeof media === 'object' ? media?.credit : null) || fallback?.credit || null
+    credit ||
+    (preferFallback ? fallback?.credit : (typeof media === 'object' ? media?.credit : null) || fallback?.credit) ||
+    null
   const tone = COVER[climate] || COVER.earth
 
   return (

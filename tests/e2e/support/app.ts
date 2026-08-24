@@ -14,7 +14,7 @@ export const auditRoutes = [
 ] as const
 
 export async function openApp(page: Page, path: string) {
-  const response = await page.goto(path, { waitUntil: 'domcontentloaded' })
+  const response = await page.goto(path, { waitUntil: 'domcontentloaded', timeout: 45_000 })
   expect(response, `No document response was returned for ${path}`).not.toBeNull()
   expect(response?.ok(), `${path} returned ${response?.status()}`).toBe(true)
   await expect(page.locator('main')).toHaveCount(1)

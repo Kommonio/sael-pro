@@ -8,7 +8,7 @@ import { isLocale, type Locale } from '@/i18n/config'
 import type { ClimateHint } from '@/condition/types'
 import { catalogCaseStudy, mergeCaseStudy } from '@/lib/caseStudies'
 import { catalogProjectCards, FEATURED_SLUGS } from '@/lib/catalog'
-import { coverFor, GALLERY } from '@/lib/covers'
+import { coverFor, GALLERY, shouldPreferCover } from '@/lib/covers'
 import type { MediaDoc } from '@/lib/media'
 import { getProject, getProjects, toProjectCard } from '@/lib/payload'
 import { normalizeProjectVideos } from '@/lib/videoMedia'
@@ -59,7 +59,8 @@ export default async function ProjectPage({
   const [cms, projectResult] = await Promise.all([getProject(slug, locale), getProjects(locale)])
   const project = mergeCaseStudy(slug, locale, cms)
   if (!project) notFound()
-  const hero = cms && typeof cms.hero === 'object' ? (cms.hero as MediaDoc) : null
+  const cmsHero = cms && typeof cms.hero === 'object' ? (cms.hero as MediaDoc) : null
+  const hero = shouldPreferCover(project.slug) ? null : cmsHero
   const galleryMedia =
     cms?.gallery
       ?.map((item) => (typeof item.image === 'object' ? (item.image as MediaDoc) : null))
