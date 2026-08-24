@@ -31,7 +31,7 @@ export function negotiateLocale(acceptLanguage: string | null | undefined): Loca
       }
       return { tag, q }
     })
-    .filter((item) => item.tag)
+    .filter((item) => item.tag && item.q > 0)
     .sort((a, b) => b.q - a.q)
 
   for (const { tag } of ranked) {

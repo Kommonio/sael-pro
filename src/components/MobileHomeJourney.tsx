@@ -10,6 +10,7 @@ import { coverFor, PORTRAIT, SECTION } from '@/lib/covers'
 import { mediaUrl } from '@/lib/media'
 
 import { MediaFigure } from './MediaFigure'
+import { MobileLabOrbit } from './MobileLabOrbit'
 import type { ProjectCardData } from './ProjectCard'
 import { Still } from './Still'
 
@@ -137,8 +138,6 @@ export function MobileHomeJourney({
         beyondCopy: 'La même pensée traverse la méthode, les outils et les expériences en cours.',
         practice: 'Pratique',
         practiceCopy: 'Les principes qui tiennent ensemble images, logiciels, systèmes et espaces.',
-        lab: 'Labo',
-        labCopy: lab[0]?.lede || 'Outils, prototypes et questions encore ouvertes.',
         closing: 'L’expérience est le résultat. Le système est ce qui la rend inévitable.',
         contact: 'Commencer une conversation',
         index: 'Progression dans la page',
@@ -153,8 +152,6 @@ export function MobileHomeJourney({
         beyondCopy: 'The same thinking moves through the method, the tools, and the experiments still in progress.',
         practice: 'Practice',
         practiceCopy: 'The principles that hold images, software, systems, and space together.',
-        lab: 'Lab',
-        labCopy: lab[0]?.lede || 'Tools, prototypes, and questions that are still open.',
         closing: 'The experience is the outcome. The system is what makes it feel inevitable.',
         contact: 'Start a conversation',
         index: 'Progress through the page',
@@ -298,19 +295,7 @@ export function MobileHomeJourney({
             <strong className="font-display">{text.practiceCopy}</strong>
           </span>
         </Link>
-        <Link href={`/${locale}/lab`} className="mobile-home-path mobile-home-path--lab no-underline">
-          <Still
-            src={SECTION.lab.src}
-            alt={SECTION.lab.alt}
-            credit={SECTION.lab.credit}
-            sizes="76vw"
-            className="mobile-home-path-image"
-          />
-          <span className="mobile-home-path-copy">
-            <span className="type-meta">02 · {text.lab}</span>
-            <strong className="font-display">{text.labCopy}</strong>
-          </span>
-        </Link>
+        <MobileLabOrbit locale={locale} items={lab} />
       </section>
 
       <section

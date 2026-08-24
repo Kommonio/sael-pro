@@ -39,7 +39,11 @@ export function LocaleSwitcher({ locale }: { locale: Locale }) {
   }
 
   return (
-    <div className="flex items-center gap-2 type-meta">
+    <div
+      className="locale-switcher type-meta"
+      role="group"
+      aria-label={locale === 'fr' ? 'Choisir la langue' : 'Choose language'}
+    >
       {locales.map((code) => {
         const href = hrefFor(code)
         return (
@@ -49,13 +53,12 @@ export function LocaleSwitcher({ locale }: { locale: Locale }) {
             hrefLang={code}
             lang={code}
             onClick={(event) => void switchTo(event, code, href)}
-            className={`inline-flex min-h-11 min-w-11 items-center justify-center px-1 ${
-              code === locale ? 'text-current' : 'text-current opacity-70 hover:opacity-100'
-            }`}
+            className="locale-switcher-option"
+            data-active={code === locale ? 'true' : undefined}
             aria-label={localeLabels[code]}
             aria-current={code === locale ? 'page' : undefined}
           >
-            {code}
+            {code.toUpperCase()}
           </Link>
         )
       })}

@@ -43,6 +43,22 @@ test('mobile Work is an authored field and its controls follow the surface benea
   await expect(page.getByRole('button', { name: 'Menu', exact: true })).toHaveCSS('color', 'rgb(241, 232, 212)')
 })
 
+test('mobile language switcher exposes both locales and preserves the current path', async ({ page, context }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openApp(page, '/en/about')
+
+  const switcher = page.getByRole('group', { name: 'Choose language', exact: true })
+  await expect(switcher.getByRole('link', { name: 'English', exact: true })).toBeVisible()
+  const french = switcher.getByRole('link', { name: 'Français', exact: true })
+  await expect(french).toBeVisible()
+  await expect(french).toHaveAttribute('href', '/fr/about')
+
+  await french.click()
+  await expect(page).toHaveURL(/\/fr\/about$/)
+  await expect(page.locator('html')).toHaveAttribute('lang', 'fr')
+  expect((await context.cookies()).find((cookie) => cookie.name === 'NEXT_LOCALE')?.value).toBe('fr')
+})
+
 test('mobile Home keeps the thread subtle and the primary identity layers separate', async ({ page }) => {
   test.setTimeout(60_000)
   await page.setViewportSize({ width: 390, height: 844 })
@@ -60,6 +76,20 @@ test('mobile Home keeps the thread subtle and the primary identity layers separa
   expect(command).not.toBeNull()
   expect(name!.y).toBeGreaterThanOrEqual(portrait!.y + portrait!.height - 2)
   expect(command!.y).toBeGreaterThan(844 * 0.75)
+})
+
+test('mobile Home presents Lab as a kinetic project field, not an item description', async ({ page }) => {
+  test.setTimeout(60_000)
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openApp(page, '/en')
+
+  const orbit = page.locator('.mobile-home-lab-orbit')
+  await orbit.scrollIntoViewIfNeeded()
+  await expect(orbit).toBeVisible()
+  await expect(orbit).toHaveAttribute('data-lab-orbit-ready', 'true')
+  await expect(orbit.getByRole('link', { name: 'Lab projects', exact: true })).toHaveText('LAB')
+  expect(await orbit.locator('.mobile-home-lab-node').count()).toBeGreaterThan(0)
+  await expect(page.getByText(/utility for swapping Spotify and YouTube Music libraries/i)).toHaveCount(0)
 })
 
 test('mobile secondary destinations use their dedicated compositions', async ({ page }) => {

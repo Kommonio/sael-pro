@@ -2,30 +2,11 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 import {
-  defaultLocale,
-  isLocale,
   localeCookieName,
-  negotiateLocale,
-  type Locale,
 } from './i18n/config'
+import { resolveLocaleRoute } from './i18n/routing'
 
 const PUBLIC_FILE = /\.(.*)$/
-const LOCALE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365
-
-function resolvePreferredLocale(request: NextRequest): Locale {
-  const fromCookie = request.cookies.get(localeCookieName)?.value
-  if (fromCookie && isLocale(fromCookie)) return fromCookie
-  return negotiateLocale(request.headers.get('accept-language'))
-}
-
-function withLocaleCookie(response: NextResponse, locale: Locale) {
-  response.cookies.set(localeCookieName, locale, {
-    path: '/',
-    maxAge: LOCALE_COOKIE_MAX_AGE,
-    sameSite: 'lax',
-  })
-  return response
-}
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -41,24 +22,25 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const segment = pathname.split('/')[1]
-  if (isLocale(segment)) {
+  const route = resolveLocaleRoute(
+    pathname,
+    request.cookies.get(localeCookieName)?.value,
+    request.headers.get('accept-language'),
+  )
+  if (route.kind === 'localized') {
     const requestHeaders = new Headers(request.headers)
     requestHeaders.set('x-pathname', pathname)
-    requestHeaders.set('x-locale', segment)
-    const response = NextResponse.next({
+    requestHeaders.set('x-locale', route.locale)
+    return NextResponse.next({
       request: { headers: requestHeaders },
     })
-    if (request.cookies.get(localeCookieName)?.value !== segment) {
-      withLocaleCookie(response, segment)
-    }
-    return response
   }
 
-  const locale = resolvePreferredLocale(request) || defaultLocale
   const url = request.nextUrl.clone()
-  url.pathname = pathname === '/' ? `/${locale}` : `/${locale}${pathname}`
-  return withLocaleCookie(NextResponse.redirect(url), locale)
+  url.pathname = route.pathname
+  const response = NextResponse.redirect(url)
+  response.headers.set('Vary', 'Accept-Language, Cookie')
+  return response
 }
 
 export const config = {
