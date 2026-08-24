@@ -59,7 +59,7 @@ test.describe('home landing project contract', () => {
     expect(orbit).not.toContain('mobile-home-orbit-thread-tail')
     expect(styles).toMatch(/\.mobile-home-orbit\s*\{[\s\S]*?border:\s*0;[\s\S]*?border-radius:\s*0;/)
     expect(styles).toMatch(/\.mobile-home-work-orbit\s*\{[\s\S]*?background:\s*transparent;/)
-    expect(styles).toMatch(/\.mobile-home-lab-orbit\s*\{[\s\S]*?background:\s*[\s\S]*?var\(--night\)\);/)
+    expect(styles).toMatch(/\.mobile-home-lab-orbit\s*\{[\s\S]*?background:\s*transparent;/)
     expect(clock).toContain('(max-width: 767.98px), (prefers-reduced-motion: reduce)')
     expect(bridge).toContain('reducedThreadTravel()')
   })

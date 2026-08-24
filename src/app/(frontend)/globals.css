@@ -1421,17 +1421,12 @@ html[data-thread-moving] .site-footer {
   }
 
   .mobile-home-lab-orbit {
-    --orbit-ambient: color-mix(in srgb, var(--ochre) 12%, transparent);
-    --orbit-node-surface: color-mix(in srgb, var(--sap) 68%, var(--night));
-    --orbit-thread-ghost: color-mix(in srgb, var(--paper) 16%, transparent);
-    --orbit-thread-live: color-mix(in srgb, var(--acid) 74%, var(--paper));
-    width: calc(100% + 2rem);
-    margin-right: -1rem;
-    margin-left: -1rem;
-    background:
-      radial-gradient(78% 62% at 50% 46%, color-mix(in srgb, var(--moss) 42%, transparent), transparent 72%),
-      radial-gradient(54% 42% at 92% 8%, color-mix(in srgb, var(--ochre) 15%, transparent), transparent 78%),
-      color-mix(in srgb, var(--sap) 82%, var(--night));
+    --orbit-ambient: color-mix(in srgb, var(--moss) 18%, transparent);
+    --orbit-node-surface: color-mix(in srgb, var(--sap) 78%, var(--night));
+    --orbit-thread-ghost: color-mix(in srgb, var(--ink) 18%, transparent);
+    --orbit-thread-live: color-mix(in srgb, var(--ochre) 78%, var(--ink));
+    width: 100%;
+    background: transparent;
   }
 
   @keyframes mobile-lab-thread-flow {
