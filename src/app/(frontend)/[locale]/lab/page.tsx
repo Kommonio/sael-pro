@@ -4,20 +4,22 @@ import { notFound } from 'next/navigation'
 import { LabThread } from '@/components/PageThread'
 import { isLocale, type Locale } from '@/i18n/config'
 import { catalogLab } from '@/lib/catalog'
+import { socialMetadata } from '@/lib/og/metadata'
 import { getLabItems } from '@/lib/payload'
-import { getServerSideURL } from '@/utilities/getURL'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
+  if (!isLocale(locale)) return {}
+  const description =
+    locale === 'fr'
+      ? 'Petits outils et expériences vivantes : des systèmes précis pour éprouver une idée dans le réel.'
+      : 'Small utilities and live experiments: precise tools made to test an idea in the real.'
   return {
     title: 'Lab',
-    alternates: {
-      canonical: `${getServerSideURL()}/${locale}/lab`,
-      languages: { en: `${getServerSideURL()}/en/lab`, fr: `${getServerSideURL()}/fr/lab` },
-    },
+    ...socialMetadata({ locale, path: ['lab'], title: 'Lab', description }),
   }
 }
 

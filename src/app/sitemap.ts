@@ -2,10 +2,10 @@ import type { MetadataRoute } from 'next'
 
 import { locales } from '@/i18n/config'
 import { getProjects } from '@/lib/payload'
-import { getServerSideURL } from '@/utilities/getURL'
+import { getPublicSiteURL } from '@/utilities/getPublicSiteURL'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = getServerSideURL()
+  const base = getPublicSiteURL()
   const paths = ['', '/work', '/practice', '/lab', '/about', '/contact']
   let slugs: string[] = []
   try {

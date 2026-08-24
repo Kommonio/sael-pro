@@ -5,21 +5,24 @@ import { ContentEssay, EssayBody, EssaySection } from '@/components/ContentEssay
 import { isLocale, type Locale } from '@/i18n/config'
 import { catalogAbout } from '@/lib/catalog'
 import { ABOUT_STILL } from '@/lib/covers'
+import { socialMetadata } from '@/lib/og/metadata'
 import { getGlobal } from '@/lib/payload'
 import { lexicalText } from '@/lib/richText'
-import { getServerSideURL } from '@/utilities/getURL'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
+  if (!isLocale(locale)) return {}
+  const title = locale === 'fr' ? 'À propos' : 'About'
+  const description =
+    locale === 'fr'
+      ? 'Une pratique multidisciplinaire entre image, logiciel, systèmes et espace physique.'
+      : 'A multidisciplinary practice moving between image-making, software, systems and physical space.'
   return {
-    title: locale === 'fr' ? 'À propos' : 'About',
-    alternates: {
-      canonical: `${getServerSideURL()}/${locale}/about`,
-      languages: { en: `${getServerSideURL()}/en/about`, fr: `${getServerSideURL()}/fr/about` },
-    },
+    title,
+    ...socialMetadata({ locale, path: ['about'], title, description }),
   }
 }
 

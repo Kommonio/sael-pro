@@ -4,23 +4,23 @@ import { notFound } from 'next/navigation'
 import { WorkThread } from '@/components/WorkThread'
 import { isLocale, type Locale } from '@/i18n/config'
 import { catalogProjectCards } from '@/lib/catalog'
+import { socialMetadata } from '@/lib/og/metadata'
 import { getProjects, toProjectCard } from '@/lib/payload'
-import { getServerSideURL } from '@/utilities/getURL'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
+  if (!isLocale(locale)) return {}
+  const title = locale === 'fr' ? 'Œuvre' : 'Work'
+  const description =
+    locale === 'fr'
+      ? 'Mondes d’auteur, systèmes spatiaux, médias immersifs et l’infrastructure qui les fait tenir.'
+      : 'Authored worlds, spatial systems, immersive media and the infrastructure that holds them together.'
   return {
-    title: locale === 'fr' ? 'Œuvre' : 'Work',
-    alternates: {
-      canonical: `${getServerSideURL()}/${locale}/work`,
-      languages: {
-        en: `${getServerSideURL()}/en/work`,
-        fr: `${getServerSideURL()}/fr/work`,
-      },
-    },
+    title,
+    ...socialMetadata({ locale, path: ['work'], title, description }),
   }
 }
 

@@ -4,8 +4,8 @@ import { notFound } from 'next/navigation'
 import { HomeThread } from '@/components/HomeThread'
 import { isLocale, type Locale } from '@/i18n/config'
 import { catalogLab, catalogProjectCards } from '@/lib/catalog'
+import { socialMetadata } from '@/lib/og/metadata'
 import { getGlobal, getLabItems, getProjects, toProjectCard } from '@/lib/payload'
-import { getServerSideURL } from '@/utilities/getURL'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -13,14 +13,17 @@ export const revalidate = 0
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params
   if (!isLocale(raw)) return {}
-  const site = await getGlobal<{ seoTitle?: string; seoDescription?: string; thesis?: string }>('site', raw)
+  const site = await getGlobal<{ seoTitle?: string; seoDescription?: string; thesis?: string; updatedAt?: string }>('site', raw)
+  const title = site.seoTitle || 'Saël Simard'
+  const description =
+    site.seoDescription ||
+    site.thesis ||
+    (raw === 'fr'
+      ? 'Images, logiciels, systèmes et espaces — conçus comme une seule rencontre.'
+      : 'Images, software, systems and space — designed as one encounter.')
   return {
-    title: { absolute: site.seoTitle || 'Saël Simard' },
-    description: site.seoDescription || site.thesis,
-    alternates: {
-      canonical: `${getServerSideURL()}/${raw}`,
-      languages: { en: `${getServerSideURL()}/en`, fr: `${getServerSideURL()}/fr` },
-    },
+    title: { absolute: title },
+    ...socialMetadata({ locale: raw, title, description, revision: site.updatedAt }),
   }
 }
 

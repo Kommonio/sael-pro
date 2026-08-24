@@ -10,9 +10,9 @@ import { catalogCaseStudy, mergeCaseStudy } from '@/lib/caseStudies'
 import { catalogProjectCards, FEATURED_SLUGS } from '@/lib/catalog'
 import { coverFor, GALLERY, shouldPreferCover } from '@/lib/covers'
 import type { MediaDoc } from '@/lib/media'
+import { socialMetadata } from '@/lib/og/metadata'
 import { getProject, getProjects, toProjectCard } from '@/lib/payload'
 import { normalizeProjectVideos } from '@/lib/videoMedia'
-import { getServerSideURL } from '@/utilities/getURL'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -33,18 +33,18 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params
   if (!isLocale(locale)) return {}
-  const project = (await getProject(slug, locale)) || catalogCaseStudy(slug, locale as Locale)
+  const cms = await getProject(slug, locale)
+  const project = cms || catalogCaseStudy(slug, locale as Locale)
   if (!project) return {}
   return {
     title: project.title,
-    description: project.lede,
-    alternates: {
-      canonical: `${getServerSideURL()}/${locale}/work/${slug}`,
-      languages: {
-        en: `${getServerSideURL()}/en/work/${slug}`,
-        fr: `${getServerSideURL()}/fr/work/${slug}`,
-      },
-    },
+    ...socialMetadata({
+      locale,
+      path: ['work', slug],
+      title: project.title,
+      description: project.lede,
+      revision: cms?.updatedAt,
+    }),
   }
 }
 

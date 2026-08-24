@@ -4,20 +4,22 @@ import { notFound } from 'next/navigation'
 import { ContactForm } from '@/components/ContactForm'
 import { ContactThread } from '@/components/PageThread'
 import { isLocale, type Locale } from '@/i18n/config'
+import { socialMetadata } from '@/lib/og/metadata'
 import { getGlobal } from '@/lib/payload'
-import { getServerSideURL } from '@/utilities/getURL'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
+  if (!isLocale(locale)) return {}
+  const description =
+    locale === 'fr'
+      ? 'Pour des collaborations, des systèmes, des installations et un travail qui doit tenir dans le réel.'
+      : 'For collaborations, systems, installations and work that has to hold in the real.'
   return {
     title: 'Contact',
-    alternates: {
-      canonical: `${getServerSideURL()}/${locale}/contact`,
-      languages: { en: `${getServerSideURL()}/en/contact`, fr: `${getServerSideURL()}/fr/contact` },
-    },
+    ...socialMetadata({ locale, path: ['contact'], title: 'Contact', description }),
   }
 }
 

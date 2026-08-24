@@ -1,9 +1,9 @@
 import type { MetadataRoute } from 'next'
 
-import { getServerSideURL } from '@/utilities/getURL'
+import { getPublicSiteURL } from '@/utilities/getPublicSiteURL'
 
 export default function robots(): MetadataRoute.Robots {
-  const base = getServerSideURL()
+  const base = getPublicSiteURL()
   return {
     rules: {
       userAgent: '*',

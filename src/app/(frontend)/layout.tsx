@@ -7,7 +7,8 @@ import { UmlautLayer } from '@/components/UmlautLayer'
 import { ConditionProvider } from '@/condition/ConditionProvider'
 import { SmoothScroll } from '@/condition/SmoothScroll'
 import { defaultLocale, isLocale } from '@/i18n/config'
-import { getServerSideURL } from '@/utilities/getURL'
+import { ogImageUrl } from '@/lib/og/metadata'
+import { getPublicSiteURL } from '@/utilities/getPublicSiteURL'
 
 import './globals.css'
 
@@ -19,7 +20,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(getServerSideURL()),
+  metadataBase: new URL(getPublicSiteURL()),
   title: {
     default: 'Saël Simard',
     template: '%s — Saël Simard',
@@ -29,7 +30,11 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: 'Saël Simard',
     type: 'website',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Saël Simard' }],
+    images: [{ url: ogImageUrl('en'), width: 1200, height: 630, alt: 'Saël Simard' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [{ url: ogImageUrl('en'), alt: 'Saël Simard' }],
   },
 }
 
