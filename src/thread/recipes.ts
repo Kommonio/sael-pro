@@ -34,7 +34,7 @@ export function homeGraph(
   lab: { slug: string; title: string; year?: string | null; url?: string | null; lede?: string | null }[],
 ): CompiledGraph {
   const labels = t(locale)
-  const featured = projects.find((project) => project.slug === 'azul-vivo') || projects[0]
+  const featured = projects.find((project) => project.landingPosition === 'primary') || projects[0]
   const featuredHero = typeof featured?.hero === 'object' ? featured.hero : null
   const workCover = coverFor(featured?.slug)
   const workStill = mediaUrl(featuredHero, 'xlarge') || mediaUrl(featuredHero) || workCover?.src

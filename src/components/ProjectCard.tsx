@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { RememberHold } from '@/condition/RememberHold'
 import type { Locale } from '@/i18n/config'
+import type { LandingPosition } from '@/lib/landingProjects'
 import type { MediaDoc } from '@/lib/media'
 
 import { MediaFigure } from './MediaFigure'
@@ -17,6 +18,7 @@ export type ProjectCardData = {
   tags?: string[] | null
   climateHint?: string | null
   hero?: MediaDoc | number | null
+  landingPosition?: LandingPosition | null
 }
 
 export function ProjectCard({

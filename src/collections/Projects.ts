@@ -2,6 +2,7 @@ import type { CollectionConfig, TextFieldSingleValidation, UploadFieldSingleVali
 
 import { anyone } from '@/access/anyone'
 import { authenticated } from '@/access/authenticated'
+import { landingPositionField } from '@/fields/landingPosition'
 import { projectLexical } from '@/fields/richText'
 import { revalidateProject } from '@/hooks/revalidateContent'
 import { validateExternalVideoUrl, type VideoSourceType } from '@/lib/videoMedia'
@@ -27,7 +28,7 @@ export const Projects: CollectionConfig = {
   slug: 'projects',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'year', 'authorship', 'tier', 'verification', 'updatedAt'],
+    defaultColumns: ['title', 'landingPosition', 'year', 'authorship', 'tier', 'verification', 'updatedAt'],
     description:
       'Case-study-grade Work only. Small utilities and lightweight prototypes belong in Lab Items. Publishing and factual verification are separate states.',
     group: 'Content',
@@ -52,6 +53,7 @@ export const Projects: CollectionConfig = {
     hero: true,
     videos: true,
     climateHint: true,
+    landingPosition: true,
   },
   fields: [
     {
@@ -134,6 +136,7 @@ export const Projects: CollectionConfig = {
       type: 'number',
       admin: { position: 'sidebar', condition: (_, sibling) => Boolean(sibling?.featured) },
     },
+    landingPositionField,
     {
       name: 'verification',
       type: 'select',

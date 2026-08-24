@@ -1189,7 +1189,33 @@ html[data-thread-moving] .site-footer {
     text-wrap: balance;
   }
 
-  .mobile-home-lab-orbit {
+  .mobile-home-all-work {
+    position: relative;
+    min-height: 102svh;
+    padding: 8rem 0.75rem max(7rem, calc(5rem + env(safe-area-inset-bottom)));
+    overflow: hidden;
+    background:
+      radial-gradient(82% 42% at 10% 8%, color-mix(in srgb, var(--clay) 19%, transparent), transparent 74%),
+      var(--night);
+  }
+
+  .mobile-home-all-work::before {
+    position: absolute;
+    top: 7rem;
+    left: 1rem;
+    color: color-mix(in srgb, var(--paper) 42%, transparent);
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    content: 'THE FULL FIELD';
+  }
+
+  html[lang='fr'] .mobile-home-all-work::before {
+    content: 'LE CHAMP COMPLET';
+  }
+
+  .mobile-home-orbit {
     position: relative;
     z-index: 2;
     width: 94%;
@@ -1211,7 +1237,7 @@ html[data-thread-moving] .site-footer {
     user-select: none;
   }
 
-  .mobile-home-lab-orbit::before {
+  .mobile-home-orbit::before {
     position: absolute;
     inset: 11% 14%;
     z-index: -1;
@@ -1221,11 +1247,11 @@ html[data-thread-moving] .site-footer {
     content: '';
   }
 
-  .mobile-home-lab-orbit[data-lab-dragging='true'] {
+  .mobile-home-orbit[data-orbit-dragging='true'] {
     cursor: grabbing;
   }
 
-  .mobile-home-lab-thread {
+  .mobile-home-orbit-thread {
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -1235,34 +1261,34 @@ html[data-thread-moving] .site-footer {
     pointer-events: none;
   }
 
-  .mobile-home-lab-thread path {
+  .mobile-home-orbit-thread path {
     fill: none;
     stroke-linecap: round;
     vector-effect: non-scaling-stroke;
   }
 
-  .mobile-home-lab-thread-ghost {
+  .mobile-home-orbit-thread-ghost {
     stroke: color-mix(in srgb, var(--paper) 13%, transparent);
     stroke-width: 1;
   }
 
-  .mobile-home-lab-thread-live {
+  .mobile-home-orbit-thread-live {
     stroke: color-mix(in srgb, var(--ochre) 82%, var(--paper));
     stroke-width: 1.2;
     stroke-dasharray: 0.16 0.84;
     animation: mobile-lab-thread-flow 8s linear infinite;
   }
 
-  .mobile-home-lab-thread-tail {
+  .mobile-home-orbit-thread-tail {
     stroke: color-mix(in srgb, var(--ochre) 44%, transparent);
     stroke-width: 1;
   }
 
-  .mobile-home-lab-thread circle {
+  .mobile-home-orbit-thread circle {
     fill: var(--ochre);
   }
 
-  .mobile-home-lab-core {
+  .mobile-home-orbit-core {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1287,7 +1313,7 @@ html[data-thread-moving] .site-footer {
       transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .mobile-home-lab-core::before {
+  .mobile-home-orbit-core::before {
     position: absolute;
     inset: -0.65rem;
     border: 1px solid color-mix(in srgb, var(--ochre) 24%, transparent);
@@ -1296,32 +1322,32 @@ html[data-thread-moving] .site-footer {
     content: '';
   }
 
-  .mobile-home-lab-core:active {
+  .mobile-home-orbit-core:active {
     transform: translate(-50%, -50%) scale(0.96);
   }
 
-  .mobile-home-lab-core-mark {
+  .mobile-home-orbit-core-mark {
     position: absolute;
     top: 1.5rem;
     display: flex;
     gap: 0.38rem;
   }
 
-  .mobile-home-lab-core-mark > i {
+  .mobile-home-orbit-core-mark > i {
     width: 0.35rem;
     height: 0.35rem;
     border-radius: 50%;
     background: var(--ochre);
   }
 
-  .mobile-home-lab-nodes {
+  .mobile-home-orbit-nodes {
     position: absolute;
     inset: 0;
     z-index: 3;
     pointer-events: none;
   }
 
-  .mobile-home-lab-node {
+  .mobile-home-orbit-node {
     --lab-node-depth: 0.5;
     position: absolute;
     display: flex;
@@ -1340,7 +1366,7 @@ html[data-thread-moving] .site-footer {
     will-change: left, top, opacity, transform;
   }
 
-  .mobile-home-lab-node > span {
+  .mobile-home-orbit-node > span {
     width: 0.42rem;
     height: 0.42rem;
     flex: 0 0 auto;
@@ -1349,7 +1375,7 @@ html[data-thread-moving] .site-footer {
     box-shadow: 0 0 0.85rem color-mix(in srgb, var(--ochre) 70%, transparent);
   }
 
-  .mobile-home-lab-node > strong {
+  .mobile-home-orbit-node > strong {
     overflow: hidden;
     font-family: var(--font-body), system-ui, sans-serif;
     font-size: 0.72rem;
@@ -1361,10 +1387,39 @@ html[data-thread-moving] .site-footer {
     white-space: nowrap;
   }
 
-  .mobile-home-lab-node:focus-visible,
-  .mobile-home-lab-core:focus-visible {
+  .mobile-home-orbit-node:focus-visible,
+  .mobile-home-orbit-core:focus-visible {
     outline: 2px solid var(--ochre);
     outline-offset: 3px;
+  }
+
+  .mobile-home-work-orbit {
+    width: 100%;
+    height: min(66svh, 35rem);
+    min-height: 31rem;
+    margin-top: 3rem;
+    border-color: color-mix(in srgb, var(--clay) 42%, var(--ochre));
+    border-radius: 0.7rem 5.5rem 0.7rem 4rem / 0.7rem 4rem 0.7rem 5rem;
+    background:
+      radial-gradient(70% 56% at 49% 47%, color-mix(in srgb, var(--clay) 22%, transparent), transparent 72%),
+      radial-gradient(45% 36% at 88% 12%, color-mix(in srgb, var(--ochre) 12%, transparent), transparent 76%),
+      var(--night);
+  }
+
+  .mobile-home-work-orbit .mobile-home-orbit-core {
+    width: 9.5rem;
+    padding: 1rem;
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .mobile-home-work-orbit-node {
+    max-width: min(10.5rem, 43vw);
+    background: color-mix(in srgb, var(--night) 82%, transparent);
   }
 
   @keyframes mobile-lab-thread-flow {
@@ -1386,8 +1441,8 @@ html[data-thread-moving] .site-footer {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .mobile-home-lab-thread-live,
-    .mobile-home-lab-core::before {
+    .mobile-home-orbit-thread-live,
+    .mobile-home-orbit-core::before {
       animation: none;
     }
   }

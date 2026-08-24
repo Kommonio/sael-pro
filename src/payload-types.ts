@@ -176,6 +176,10 @@ export interface Project {
   featured?: boolean | null;
   featuredOrder?: number | null;
   /**
+   * Optional. Only one project can occupy each position. Unassigned projects appear in the All Works field.
+   */
+  landingPosition?: ('primary' | 'secondary') | null;
+  /**
    * Factual/content review, independent of draft/published status. “Verified” alone does not guarantee public readiness.
    */
   verification?: ('verified' | 'needs-media' | 'needs-copy') | null;
@@ -881,6 +885,7 @@ export interface ProjectsSelect<T extends boolean = true> {
   tier?: T;
   featured?: T;
   featuredOrder?: T;
+  landingPosition?: T;
   verification?: T;
   climateHint?: T;
   tags?: T;

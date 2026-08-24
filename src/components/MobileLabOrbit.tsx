@@ -5,12 +5,14 @@ import { useEffect, useRef } from 'react'
 
 import type { Locale } from '@/i18n/config'
 
-export type MobileLabItem = {
+export type MobileOrbitItem = {
   slug: string
   title: string
   year?: string | null
   url?: string | null
 }
+
+type MobileOrbitKind = 'lab' | 'work'
 
 function orbitPoint(index: number, count: number, phase: number) {
   const angle = phase + (index / Math.max(1, count)) * Math.PI * 2
@@ -22,7 +24,15 @@ function orbitPoint(index: number, count: number, phase: number) {
   }
 }
 
-export function MobileLabOrbit({ locale, items }: { locale: Locale; items: MobileLabItem[] }) {
+function MobileOrbitField({
+  locale,
+  items,
+  kind,
+}: {
+  locale: Locale
+  items: MobileOrbitItem[]
+  kind: MobileOrbitKind
+}) {
   const field = useRef<HTMLElement>(null)
   const nodes = useRef<Array<HTMLAnchorElement | null>>([])
 
@@ -96,7 +106,7 @@ export function MobileLabOrbit({ locale, items }: { locale: Locale; items: Mobil
       pointerStartPhase = target
       velocity = 0
       suppressClick = false
-      host.dataset.labDragging = 'true'
+      host.dataset.orbitDragging = 'true'
       host.setPointerCapture(event.pointerId)
     }
 
@@ -118,7 +128,7 @@ export function MobileLabOrbit({ locale, items }: { locale: Locale; items: Mobil
       if (pointerID !== event.pointerId) return
       target += velocity * 180
       pointerID = null
-      delete host.dataset.labDragging
+      delete host.dataset.orbitDragging
       if (host.hasPointerCapture(event.pointerId)) host.releasePointerCapture(event.pointerId)
     }
 
@@ -145,7 +155,8 @@ export function MobileLabOrbit({ locale, items }: { locale: Locale; items: Mobil
     )
 
     render()
-    host.dataset.labOrbitReady = 'true'
+    host.dataset.orbitReady = 'true'
+    host.dataset[`${kind}OrbitReady`] = 'true'
     observer.observe(host)
     window.addEventListener('scroll', onScroll, { passive: true })
     host.addEventListener('pointerdown', onPointerDown)
@@ -168,29 +179,44 @@ export function MobileLabOrbit({ locale, items }: { locale: Locale; items: Mobil
       host.removeEventListener('click', onClick, true)
       host.removeEventListener('focusin', onFocusIn)
       host.removeEventListener('focusout', onFocusOut)
-      delete host.dataset.labDragging
-      delete host.dataset.labOrbitReady
+      delete host.dataset.orbitDragging
+      delete host.dataset.orbitReady
+      delete host.dataset[`${kind}OrbitReady`]
     }
-  }, [items.length])
+  }, [items.length, kind])
 
-  const label = locale === 'fr' ? 'Projets du labo' : 'Lab projects'
+  const lab = kind === 'lab'
+  const label = lab
+    ? locale === 'fr'
+      ? 'Projets du labo'
+      : 'Lab projects'
+    : locale === 'fr'
+      ? 'Toutes les œuvres'
+      : 'All works'
+  const coreHref = lab ? `/${locale}/lab` : `/${locale}/work`
+  const coreLabel = lab ? 'LAB' : locale === 'fr' ? 'TOUTES LES ŒUVRES' : 'ALL WORKS'
 
   return (
-    <section ref={field} className="mobile-home-lab-orbit" aria-label={label}>
-      <svg className="mobile-home-lab-thread" viewBox="0 0 360 440" preserveAspectRatio="none" aria-hidden="true">
-        <path className="mobile-home-lab-thread-ghost" d="M43 231 C17 105 130 40 245 73 C348 103 373 254 285 344 C202 427 52 368 43 231 Z" />
-        <path className="mobile-home-lab-thread-live" d="M43 231 C17 105 130 40 245 73 C348 103 373 254 285 344 C202 427 52 368 43 231 Z" pathLength="1" />
-        <path className="mobile-home-lab-thread-tail" d="M180 217 C132 238 143 292 89 321 C56 339 42 371 51 440" />
+    <section
+      ref={field}
+      className={`mobile-home-orbit mobile-home-${kind}-orbit`}
+      aria-label={label}
+      data-orbit-kind={kind}
+    >
+      <svg className="mobile-home-orbit-thread" viewBox="0 0 360 440" preserveAspectRatio="none" aria-hidden="true">
+        <path className="mobile-home-orbit-thread-ghost" d="M43 231 C17 105 130 40 245 73 C348 103 373 254 285 344 C202 427 52 368 43 231 Z" />
+        <path className="mobile-home-orbit-thread-live" d="M43 231 C17 105 130 40 245 73 C348 103 373 254 285 344 C202 427 52 368 43 231 Z" pathLength="1" />
+        <path className="mobile-home-orbit-thread-tail" d="M180 217 C132 238 143 292 89 321 C56 339 42 371 51 440" />
         <circle cx="177" cy="215" r="3.5" />
         <circle cx="188" cy="215" r="3.5" />
       </svg>
 
-      <Link href={`/${locale}/lab`} className="mobile-home-lab-core no-underline" aria-label={label}>
-        <span>LAB</span>
-        <span className="mobile-home-lab-core-mark" aria-hidden="true"><i /><i /></span>
+      <Link href={coreHref} className="mobile-home-orbit-core no-underline" aria-label={label}>
+        <span>{coreLabel}</span>
+        <span className="mobile-home-orbit-core-mark" aria-hidden="true"><i /><i /></span>
       </Link>
 
-      <div className="mobile-home-lab-nodes">
+      <div className="mobile-home-orbit-nodes">
         {items.map((item, index) => {
           const point = orbitPoint(index, items.length, 0.32)
           return (
@@ -198,7 +224,7 @@ export function MobileLabOrbit({ locale, items }: { locale: Locale; items: Mobil
               key={item.slug}
               ref={(node) => { nodes.current[index] = node }}
               href={item.url || `/${locale}/lab`}
-              className="mobile-home-lab-node no-underline"
+              className={`mobile-home-orbit-node ${lab ? 'mobile-home-lab-node' : 'mobile-home-work-orbit-node'} no-underline`}
               style={{
                 left: `${point.x}%`,
                 top: `${point.y}%`,
@@ -215,4 +241,12 @@ export function MobileLabOrbit({ locale, items }: { locale: Locale; items: Mobil
       </div>
     </section>
   )
+}
+
+export function MobileLabOrbit({ locale, items }: { locale: Locale; items: MobileOrbitItem[] }) {
+  return <MobileOrbitField locale={locale} items={items} kind="lab" />
+}
+
+export function MobileWorkOrbit({ locale, items }: { locale: Locale; items: MobileOrbitItem[] }) {
+  return <MobileOrbitField locale={locale} items={items} kind="work" />
 }

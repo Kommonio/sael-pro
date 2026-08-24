@@ -6,11 +6,11 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { RememberHold } from '@/condition/RememberHold'
 import type { Locale } from '@/i18n/config'
-import { coverFor, PORTRAIT, SECTION } from '@/lib/covers'
-import { mediaUrl } from '@/lib/media'
+import { PORTRAIT, SECTION } from '@/lib/covers'
+import { resolveLandingProjects } from '@/lib/landingProjects'
 
 import { MediaFigure } from './MediaFigure'
-import { MobileLabOrbit } from './MobileLabOrbit'
+import { MobileLabOrbit, MobileWorkOrbit } from './MobileLabOrbit'
 import type { ProjectCardData } from './ProjectCard'
 import { Still } from './Still'
 
@@ -20,23 +20,6 @@ type LabCard = {
   year?: string | null
   url?: string | null
   lede?: string | null
-}
-
-const FEATURED_ORDER = ['azul-vivo', 'onmove', 'man-who-planted-trees']
-
-function hasProjectImage(project: ProjectCardData) {
-  const hero = typeof project.hero === 'object' ? project.hero : null
-  return Boolean(mediaUrl(hero, 'xlarge') || mediaUrl(hero) || coverFor(project.slug))
-}
-
-function selectProjects(projects: ProjectCardData[]) {
-  const preferred = FEATURED_ORDER.map((slug) => projects.find((project) => project.slug === slug)).filter(
-    (project): project is ProjectCardData => Boolean(project && hasProjectImage(project)),
-  )
-  const remaining = projects.filter(
-    (project) => hasProjectImage(project) && !preferred.some((item) => item.slug === project.slug),
-  )
-  return [...preferred, ...remaining].slice(0, 3)
 }
 
 function authorshipLabel(project: ProjectCardData, locale: Locale) {
@@ -77,9 +60,9 @@ export function MobileHomeJourney({
   lab: LabCard[]
 }) {
   const root = useRef<HTMLDivElement>(null)
-  const featured = useMemo(() => selectProjects(projects), [projects])
+  const { spotlight, remaining } = useMemo(() => resolveLandingProjects(projects), [projects])
   const [active, setActive] = useState(0)
-  const chapterCount = featured.length + 3
+  const chapterCount = spotlight.length + 4
   const progress = chapterCount > 1 ? active / (chapterCount - 1) : 0
   const fr = locale === 'fr'
 
@@ -132,6 +115,8 @@ export function MobileHomeJourney({
         role: 'Architecte de systèmes · Technologue créatif · Médias immersifs',
         proof: 'L’œuvre commence ici',
         selected: 'Œuvres choisies',
+        primary: 'Principale',
+        secondary: 'Secondaire',
         enter: 'Entrer dans l’étude',
         allWork: 'Voir toute l’œuvre',
         beyond: 'Sous la surface',
@@ -146,6 +131,8 @@ export function MobileHomeJourney({
         role: 'System architect · Creative technologist · Immersive media',
         proof: 'The work begins here',
         selected: 'Selected work',
+        primary: 'Primary',
+        secondary: 'Secondary',
         enter: 'Enter the case study',
         allWork: 'View all work',
         beyond: 'Below the surface',
@@ -211,7 +198,7 @@ export function MobileHomeJourney({
 
           <div className="mobile-home-opening-peek" aria-hidden="true">
             <span className="type-meta">{text.selected}</span>
-            <span>{featured[0]?.title || (fr ? 'Œuvre' : 'Work')}</span>
+            <span>{spotlight[0]?.title || (fr ? 'Œuvre' : 'Work')}</span>
           </div>
         </div>
       </section>
@@ -221,7 +208,7 @@ export function MobileHomeJourney({
         <span aria-hidden="true" />
       </div>
 
-      {featured.map((project, index) => (
+      {spotlight.map((project, index) => (
         <article
           key={project.slug}
           className="mobile-home-project"
@@ -245,7 +232,7 @@ export function MobileHomeJourney({
                 />
                 <span className="mobile-home-project-shade" aria-hidden="true" />
                 <span className="mobile-home-project-register">
-                  <span className="type-meta">0{index + 1}</span>
+                  <span className="type-meta">0{index + 1} · {index === 0 ? text.primary : text.secondary}</span>
                   <span className="type-meta">{authorshipLabel(project, locale)}</span>
                 </span>
                 <span className="mobile-home-project-copy">
@@ -267,9 +254,25 @@ export function MobileHomeJourney({
         </article>
       ))}
 
+      <div
+        className="mobile-home-all-work"
+        data-mobile-home-chapter={spotlight.length + 1}
+        data-mobile-home-surface="night"
+      >
+        <MobileWorkOrbit
+          locale={locale}
+          items={remaining.map((project) => ({
+            slug: project.slug,
+            title: project.title,
+            year: project.year,
+            url: `/${locale}/work/${project.slug}`,
+          }))}
+        />
+      </div>
+
       <section
         className="mobile-home-depth"
-        data-mobile-home-chapter={featured.length + 1}
+        data-mobile-home-chapter={spotlight.length + 2}
         data-mobile-home-surface="paper"
         aria-labelledby="mobile-home-depth-title"
       >
@@ -300,7 +303,7 @@ export function MobileHomeJourney({
 
       <section
         className="mobile-home-closing"
-        data-mobile-home-chapter={featured.length + 2}
+        data-mobile-home-chapter={spotlight.length + 3}
         data-mobile-home-surface="night"
       >
         <div className="mobile-home-closing-orbit" aria-hidden="true">

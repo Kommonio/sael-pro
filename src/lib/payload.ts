@@ -36,6 +36,7 @@ export function toProjectCard(doc: Project): ProjectCardRecord {
     tags: doc.tags,
     featuredOrder: doc.featuredOrder,
     featured: doc.featured,
+    landingPosition: doc.landingPosition,
   }
 }
 

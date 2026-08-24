@@ -19,6 +19,7 @@ export type PublicProjectTier = 'a' | 'b' | 'c'
 export type PublicProjectVerification = 'verified' | 'needs-media' | 'needs-copy'
 export type PublicProjectStatus = 'draft' | 'published'
 export type PublicProjectHeroTreatment = 'media' | 'typographic'
+export type PublicProjectLandingPosition = 'primary' | 'secondary'
 export type PublicMediaPurpose = 'informative' | 'decorative'
 
 /**
@@ -59,6 +60,7 @@ export type PublicProjectSource = {
   tier?: PublicProjectTier | null
   featured?: boolean | null
   featuredOrder?: number | null
+  landingPosition?: PublicProjectLandingPosition | null
   verification?: PublicProjectVerification | null
   climateHint?: 'earth' | 'sap' | 'clay' | 'moss' | 'acid' | null
   tags?: readonly (string | null | undefined)[] | null
@@ -196,6 +198,7 @@ export type PublicProjectView = {
   tags: PublicProjectTag[]
   featured: boolean
   featuredOrder: number | null
+  landingPosition: PublicProjectLandingPosition | null
   verification: PublicProjectVerification | null
   status: PublicProjectStatus | null
   climateHint: 'earth' | 'sap' | 'clay' | 'moss' | 'acid'
@@ -662,6 +665,7 @@ export function toPublicProjectView(
     tags: normalizePublicProjectTags(source.tags),
     featured: source.featured === true,
     featuredOrder: typeof source.featuredOrder === 'number' ? source.featuredOrder : null,
+    landingPosition: source.landingPosition || null,
     verification: source.verification || null,
     status: source._status || null,
     climateHint: source.climateHint || 'earth',

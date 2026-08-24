@@ -92,6 +92,27 @@ test('mobile Home presents Lab as a kinetic project field, not an item descripti
   await expect(page.getByText(/utility for swapping Spotify and YouTube Music libraries/i)).toHaveCount(0)
 })
 
+test('mobile Home gives two projects full attention before opening the All Works field', async ({ page }) => {
+  test.setTimeout(60_000)
+  await page.setViewportSize({ width: 390, height: 844 })
+  await openApp(page, '/en')
+
+  const spotlights = page.locator('.mobile-home-project')
+  await expect(spotlights).toHaveCount(2)
+  await expect(spotlights.nth(0)).toContainText('Primary')
+  await expect(spotlights.nth(0)).toContainText('Azul Vivo')
+  await expect(spotlights.nth(1)).toContainText('Secondary')
+  await expect(spotlights.nth(1)).toContainText('OnMove')
+
+  const allWorks = page.locator('.mobile-home-work-orbit')
+  await allWorks.scrollIntoViewIfNeeded()
+  await expect(allWorks).toHaveAttribute('data-work-orbit-ready', 'true')
+  await expect(allWorks.getByRole('link', { name: 'All works', exact: true })).toHaveText('ALL WORKS')
+  expect(await allWorks.locator('.mobile-home-work-orbit-node').count()).toBeGreaterThan(0)
+  await expect(allWorks.locator('.mobile-home-work-orbit-node', { hasText: 'Azul Vivo' })).toHaveCount(0)
+  await expect(allWorks.locator('.mobile-home-work-orbit-node', { hasText: 'OnMove' })).toHaveCount(0)
+})
+
 test('mobile secondary destinations use their dedicated compositions', async ({ page }) => {
   test.setTimeout(60_000)
   await page.setViewportSize({ width: 390, height: 844 })

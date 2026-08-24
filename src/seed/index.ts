@@ -137,6 +137,7 @@ async function run() {
       year: project.year,
       featured: project.featured,
       featuredOrder: project.featuredOrder,
+      landingPosition: 'landingPosition' in project ? project.landingPosition : undefined,
       authorship: project.authorship,
       tier: project.tier,
       verification: project.verification,
