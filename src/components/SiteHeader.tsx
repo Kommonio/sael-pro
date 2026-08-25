@@ -40,6 +40,7 @@ export function SiteHeader({
   useEffect(() => {
     if (!open) return
 
+    const documentRoot = document.documentElement
     const previousOverflow = document.body.style.overflow
     const pageRegions = Array.from(document.querySelectorAll<HTMLElement>('main, .site-footer'))
     const desktop = window.matchMedia('(min-width: 1024px)')
@@ -48,6 +49,7 @@ export function SiteHeader({
       ...Array.from(mobileNav.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') || []),
     ].filter((item): item is HTMLElement => Boolean(item))
 
+    documentRoot.dataset.mobileMenu = 'open'
     document.body.style.overflow = 'hidden'
     pageRegions.forEach((region) => region.setAttribute('inert', ''))
 
@@ -84,6 +86,7 @@ export function SiteHeader({
       desktop.removeEventListener('change', closeForDesktop)
       document.removeEventListener('keydown', handleKeyDown)
       document.body.style.overflow = previousOverflow
+      delete documentRoot.dataset.mobileMenu
       pageRegions.forEach((region) => region.removeAttribute('inert'))
     }
   }, [open])
@@ -93,6 +96,50 @@ export function SiteHeader({
     if (peekJourney()) return
     setThreadPlace(gateFromPath(pathname) === 'home' ? 'home' : 'inner')
   }, [pathname])
+
+  useEffect(() => {
+    const documentRoot = document.documentElement
+    const mobileLanding = window.matchMedia('(max-width: 767.98px)')
+    const isHome = pathname === `/${locale}`
+    let frame = 0
+
+    const update = () => {
+      frame = 0
+      if (isHome && mobileLanding.matches) {
+        documentRoot.style.removeProperty('--mobile-command-progress')
+        delete documentRoot.dataset.mobileCommandProgress
+        return
+      }
+
+      const scrollingElement = document.scrollingElement || documentRoot
+      const scrollable = Math.max(0, scrollingElement.scrollHeight - window.innerHeight)
+      const progress = scrollable > 0 ? Math.min(1, Math.max(0, scrollingElement.scrollTop / scrollable)) : 0
+      documentRoot.style.setProperty('--mobile-command-progress', progress.toFixed(4))
+      documentRoot.dataset.mobileCommandProgress = 'scroll'
+    }
+
+    const scheduleUpdate = () => {
+      if (frame) return
+      frame = window.requestAnimationFrame(update)
+    }
+    const resizeObserver = new ResizeObserver(scheduleUpdate)
+
+    resizeObserver.observe(document.body)
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
+    window.addEventListener('resize', scheduleUpdate)
+    mobileLanding.addEventListener('change', scheduleUpdate)
+    scheduleUpdate()
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame)
+      resizeObserver.disconnect()
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', scheduleUpdate)
+      mobileLanding.removeEventListener('change', scheduleUpdate)
+      documentRoot.style.removeProperty('--mobile-command-progress')
+      delete documentRoot.dataset.mobileCommandProgress
+    }
+  }, [locale, pathname])
 
   return (
     <>
@@ -158,36 +205,44 @@ export function SiteHeader({
         </button>
       </div>
       {open ? (
-        <nav
-          ref={mobileNav}
-          id="mobile-nav"
-          className="mobile-nav-panel fixed inset-x-0 bottom-0 z-50 overflow-auto bg-paper text-ink md:hidden"
-          aria-label={locale === 'fr' ? 'Navigation principale mobile' : 'Primary mobile'}
-        >
-          <div className="mobile-nav-register site-shell">
-            <p className="type-meta">{locale === 'fr' ? 'Index' : 'Index'}</p>
-            <p>{locale === 'fr' ? 'Choisir une direction' : 'Choose a direction'}</p>
-          </div>
-          <div className="site-shell flex flex-col">
-            {links.map((item, index) => {
-              const href = `/${locale}${item.href}`
-              const current = pathname === href || pathname.startsWith(`${href}/`)
-              return (
-                <ThreadLink
-                  key={item.href}
-                  href={href}
-                  className="mobile-nav-link min-h-14 no-underline"
-                  id={item.href.replace('/', '')}
-                  aria-current={current ? 'page' : undefined}
-                >
-                  <span className="type-meta" aria-hidden="true">0{index + 1}</span>
-                  <span className="font-display" onClick={() => setOpen(false)}>{item.label}</span>
-                  <span aria-hidden="true">↗</span>
-                </ThreadLink>
-              )
-            })}
-          </div>
-        </nav>
+        <div className="mobile-nav-layer fixed inset-0 md:hidden">
+          <button
+            type="button"
+            className="mobile-nav-scrim absolute inset-0"
+            aria-label={locale === 'fr' ? 'Fermer le menu' : 'Close menu'}
+            onClick={() => setOpen(false)}
+          />
+          <nav
+            ref={mobileNav}
+            id="mobile-nav"
+            className="mobile-nav-panel absolute inset-x-0 bottom-0 overflow-auto bg-paper text-ink"
+            aria-label={locale === 'fr' ? 'Navigation principale mobile' : 'Primary mobile'}
+          >
+            <div className="mobile-nav-register site-shell">
+              <p className="type-meta">{locale === 'fr' ? 'Index' : 'Index'}</p>
+              <p>{locale === 'fr' ? 'Choisir une direction' : 'Choose a direction'}</p>
+            </div>
+            <div className="site-shell flex flex-col">
+              {links.map((item, index) => {
+                const href = `/${locale}${item.href}`
+                const current = pathname === href || pathname.startsWith(`${href}/`)
+                return (
+                  <ThreadLink
+                    key={item.href}
+                    href={href}
+                    className="mobile-nav-link min-h-14 no-underline"
+                    id={item.href.replace('/', '')}
+                    aria-current={current ? 'page' : undefined}
+                  >
+                    <span className="type-meta" aria-hidden="true">0{index + 1}</span>
+                    <span className="font-display" onClick={() => setOpen(false)}>{item.label}</span>
+                    <span aria-hidden="true">↗</span>
+                  </ThreadLink>
+                )
+              })}
+            </div>
+          </nav>
+        </div>
       ) : null}
     </>
   )

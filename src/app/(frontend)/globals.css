@@ -474,7 +474,12 @@ html[data-mobile-surface='night'] .site-header .locale-switcher-option[data-acti
     transition:
       color 0.45s ease,
       background-color 0.45s ease,
-      border-color 0.45s ease;
+      border-color 0.45s ease,
+      box-shadow 0.45s ease;
+  }
+
+  html[data-mobile-menu='open'] .mobile-command-bar {
+    z-index: 75;
   }
 
   .mobile-command-work,
@@ -501,13 +506,18 @@ html[data-mobile-surface='night'] .site-header .locale-switcher-option[data-acti
   .mobile-command-thread > span {
     position: absolute;
     top: -0.2rem;
-    left: calc(var(--mobile-home-progress, 0) * (100% - 0.4rem));
+    left: calc(var(--mobile-command-progress, var(--mobile-home-progress, 0)) * (100% - 0.4rem));
     width: 0.4rem;
     height: 0.4rem;
     border-radius: 50%;
     background: var(--ochre);
     box-shadow: 0 0 0 0.22rem color-mix(in srgb, var(--ochre) 17%, transparent);
     transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  html[data-mobile-command-progress='scroll'] .mobile-command-thread > span {
+    transition-duration: 0.18s;
+    transition-timing-function: linear;
   }
 
   .mobile-command-menu {
@@ -539,9 +549,23 @@ html[data-mobile-surface='night'] .site-header .locale-switcher-option[data-acti
     color: var(--paper);
   }
 
+  .mobile-nav-layer {
+    z-index: 70;
+    isolation: isolate;
+    contain: layout paint;
+  }
+
+  .mobile-nav-scrim {
+    inset: 0 0 auto;
+    height: max(18svh, calc(100svh - 44rem));
+    border: 0;
+    background: color-mix(in srgb, var(--night) 28%, transparent);
+    animation: mobile-nav-scrim-arrive 0.32s ease-out both;
+    touch-action: none;
+  }
+
   .mobile-nav-panel {
-    top: auto;
-    z-index: 49;
+    z-index: 1;
     height: min(82svh, 44rem);
     padding-top: 1.5rem;
     padding-bottom: calc(5.75rem + env(safe-area-inset-bottom));
@@ -549,6 +573,9 @@ html[data-mobile-surface='night'] .site-header .locale-switcher-option[data-acti
     border-radius: 2.25rem 2.25rem 0 0;
     box-shadow: 0 -2rem 7rem color-mix(in srgb, var(--night) 30%, transparent);
     animation: mobile-nav-arrive 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
+    overscroll-behavior: contain;
+    transform: translate3d(0, 0, 0);
+    touch-action: pan-y;
   }
 
   .mobile-nav-register {
@@ -587,12 +614,21 @@ html[data-mobile-surface='night'] .site-header .locale-switcher-option[data-acti
 
   @keyframes mobile-nav-arrive {
     from {
-      opacity: 0.4;
-      clip-path: inset(100% 0 0 0 round 2.25rem 2.25rem 0 0);
+      opacity: 0.72;
+      transform: translate3d(0, 2.5rem, 0);
     }
     to {
       opacity: 1;
-      clip-path: inset(0 0 0 0 round 2.25rem 2.25rem 0 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes mobile-nav-scrim-arrive {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
     }
   }
 }
