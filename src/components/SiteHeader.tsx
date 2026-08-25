@@ -40,8 +40,6 @@ export function SiteHeader({
   useEffect(() => {
     if (!open) return
 
-    const documentRoot = document.documentElement
-    const previousOverflow = document.body.style.overflow
     const pageRegions = Array.from(document.querySelectorAll<HTMLElement>('main, .site-footer'))
     const desktop = window.matchMedia('(min-width: 1024px)')
     const focusable = () => [
@@ -49,8 +47,6 @@ export function SiteHeader({
       ...Array.from(mobileNav.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') || []),
     ].filter((item): item is HTMLElement => Boolean(item))
 
-    documentRoot.dataset.mobileMenu = 'open'
-    document.body.style.overflow = 'hidden'
     pageRegions.forEach((region) => region.setAttribute('inert', ''))
 
     const focusFirstLink = window.requestAnimationFrame(() => focusable()[1]?.focus())
@@ -85,8 +81,6 @@ export function SiteHeader({
       window.cancelAnimationFrame(focusFirstLink)
       desktop.removeEventListener('change', closeForDesktop)
       document.removeEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = previousOverflow
-      delete documentRoot.dataset.mobileMenu
       pageRegions.forEach((region) => region.removeAttribute('inert'))
     }
   }, [open])
@@ -181,37 +175,31 @@ export function SiteHeader({
           </div>
         </div>
       </header>
-      <div className="mobile-command-bar md:hidden">
-        <ThreadLink
-          href={`/${locale}/work`}
-          className="mobile-command-work no-underline type-meta"
-          id="work"
-          aria-current={pathname.startsWith(`/${locale}/work`) ? 'page' : undefined}
-        >
-          {labels.work}
-        </ThreadLink>
-        <span className="mobile-command-thread" aria-hidden="true">
-          <span />
-        </span>
-        <button
-          ref={menuButton}
-          type="button"
-          className="header-chip mobile-command-menu min-h-11 type-meta"
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          onClick={() => setOpen((value) => !value)}
-        >
-          {open ? (locale === 'fr' ? 'Fermer' : 'Close') : 'Menu'}
-        </button>
-      </div>
-      {open ? (
-        <div className="mobile-nav-layer fixed inset-0 md:hidden">
+      <div className={`mobile-command-dock md:hidden${open ? ' is-open' : ''}`}>
+        <div className="mobile-command-bar">
+          <ThreadLink
+            href={`/${locale}/work`}
+            className="mobile-command-work no-underline type-meta"
+            id="work"
+            aria-current={pathname.startsWith(`/${locale}/work`) ? 'page' : undefined}
+          >
+            {labels.work}
+          </ThreadLink>
+          <span className="mobile-command-thread" aria-hidden="true">
+            <span />
+          </span>
           <button
+            ref={menuButton}
             type="button"
-            className="mobile-nav-scrim absolute inset-0"
-            aria-label={locale === 'fr' ? 'Fermer le menu' : 'Close menu'}
-            onClick={() => setOpen(false)}
-          />
+            className="header-chip mobile-command-menu min-h-11 type-meta"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? (locale === 'fr' ? 'Fermer' : 'Close') : 'Menu'}
+          </button>
+        </div>
+        {open ? (
           <nav
             ref={mobileNav}
             id="mobile-nav"
@@ -242,8 +230,8 @@ export function SiteHeader({
               })}
             </div>
           </nav>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </>
   )
 }

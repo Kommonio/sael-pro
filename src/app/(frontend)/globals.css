@@ -434,6 +434,7 @@ html[data-mobile-surface='night'] .site-header .locale-switcher-option[data-acti
   color: var(--accent);
 }
 
+.mobile-command-dock,
 .mobile-command-bar {
   display: none;
 }
@@ -453,14 +454,23 @@ html[data-mobile-surface='night'] .site-header .locale-switcher-option[data-acti
     margin-right: -0.35rem;
   }
 
-  .mobile-command-bar {
+  .mobile-command-dock {
     position: fixed;
     right: max(0.75rem, env(safe-area-inset-right));
     bottom: max(0.75rem, env(safe-area-inset-bottom));
     left: max(0.75rem, env(safe-area-inset-left));
-    z-index: 55;
+    z-index: 90;
+    display: block;
+    height: 3.4rem;
+    pointer-events: none;
+  }
+
+  .mobile-command-bar {
+    position: relative;
+    z-index: 2;
     display: grid;
     grid-template-columns: auto minmax(2.25rem, 1fr) auto;
+    width: 100%;
     height: 3.4rem;
     align-items: center;
     gap: 0.7rem;
@@ -471,6 +481,7 @@ html[data-mobile-surface='night'] .site-header .locale-switcher-option[data-acti
     box-shadow: 0 0.75rem 2.25rem color-mix(in srgb, var(--night) 14%, transparent);
     color: var(--ink);
     backdrop-filter: blur(20px) saturate(1.25);
+    pointer-events: auto;
     transition:
       color 0.45s ease,
       background-color 0.45s ease,
@@ -478,8 +489,17 @@ html[data-mobile-surface='night'] .site-header .locale-switcher-option[data-acti
       box-shadow 0.45s ease;
   }
 
-  html[data-mobile-menu='open'] .mobile-command-bar {
-    z-index: 75;
+  .mobile-command-dock.is-open .mobile-command-bar {
+    border-color: color-mix(in srgb, var(--ink) 14%, transparent);
+    background: var(--paper);
+    box-shadow: 0 0.7rem 2rem color-mix(in srgb, var(--night) 16%, transparent);
+    color: var(--ink);
+    backdrop-filter: none;
+  }
+
+  .mobile-command-dock.is-open .mobile-command-menu {
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    color: var(--ink);
   }
 
   .mobile-command-work,
@@ -549,31 +569,18 @@ html[data-mobile-surface='night'] .site-header .locale-switcher-option[data-acti
     color: var(--paper);
   }
 
-  .mobile-nav-layer {
-    z-index: 70;
-    isolation: isolate;
-    contain: layout paint;
-  }
-
-  .mobile-nav-scrim {
-    inset: 0 0 auto;
-    height: max(18svh, calc(100svh - 44rem));
-    border: 0;
-    background: color-mix(in srgb, var(--night) 28%, transparent);
-    animation: mobile-nav-scrim-arrive 0.32s ease-out both;
-    touch-action: none;
-  }
-
   .mobile-nav-panel {
     z-index: 1;
     height: min(82svh, 44rem);
+    max-height: calc(100svh - 1rem - env(safe-area-inset-top));
     padding-top: 1.5rem;
-    padding-bottom: calc(5.75rem + env(safe-area-inset-bottom));
-    border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
-    border-radius: 2.25rem 2.25rem 0 0;
+    padding-bottom: 5.25rem;
+    border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+    border-radius: 2.25rem;
     box-shadow: 0 -2rem 7rem color-mix(in srgb, var(--night) 30%, transparent);
     animation: mobile-nav-arrive 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
     overscroll-behavior: contain;
+    pointer-events: auto;
     transform: translate3d(0, 0, 0);
     touch-action: pan-y;
   }
@@ -623,14 +630,6 @@ html[data-mobile-surface='night'] .site-header .locale-switcher-option[data-acti
     }
   }
 
-  @keyframes mobile-nav-scrim-arrive {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
 }
 
 .thread-filters {
